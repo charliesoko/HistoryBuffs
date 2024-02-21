@@ -38,28 +38,53 @@ public class PlayerController : MonoBehaviour
     public float playerSpeed = 5f;
 
     private CharacterController controller;
-    private SpriteRenderer renderer;
+    private SpriteRenderer playerSprite;
     private Vector2 movementInput = Vector2.zero;
-    private bool attacked;
+
+    private bool isAttacking = false;
+    private bool attackTriggered = false;
+
+    private bool combatActionActive = false; //bool to indicate if the player is current involved in a combat action
+
+    private bool isBlocking = false;
+    private bool blockTriggered = false;
+
+    private bool isThrowing = false;
+    private bool throwTriggered = false;
 
     public Sprite attackSprite;
     public Sprite idleSprite;
+    public Sprite throwSprite;
+    public Sprite blockSprite;
 
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
-        renderer = gameObject.GetComponent<SpriteRenderer>();
+        playerSprite = gameObject.GetComponent<SpriteRenderer>();
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        movementInput = context.ReadValue<Vector2>();
+        if (!combatActionActive)
+            movementInput = context.ReadValue<Vector2>();
     }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.performed && currentState != PlayerState.Attacking)
-            attacked = true;
+        if (context.performed && !isAttacking && !attackTriggered && !combatActionActive)
+            attackTriggered = true;
+    }
+
+    public void OnBlock(InputAction.CallbackContext context)
+    {
+        if (context.performed && !isBlocking && !blockTriggered && !combatActionActive)
+            blockTriggered = true;
+    }
+
+    public void OnThrow(InputAction.CallbackContext context)
+    {
+        if (context.performed && !isThrowing && !throwTriggered && !combatActionActive)
+            throwTriggered = true;
     }
 
     private void Update()
@@ -71,28 +96,32 @@ public class PlayerController : MonoBehaviour
     /*
     This function manages how the player character switches states based on player input.
     */
-    private void UpdateState(Vector2 movementInput /*float verticalInput, bool attackInput, bool blockInput, bool throwInput, bool specialMoveInput*/)
+    private void UpdateState(Vector2 moveInput /*float verticalInput, bool attackInput, bool blockInput, bool throwInput, bool specialMoveInput*/)
     {
         switch (currentState)
         {
             case PlayerState.Idle:
-                if (movementInput.x != 0)
+                if (moveInput.x != 0)
                 {
                     currentState = PlayerState.Walking;
                 }
-                else if (attacked)
+                else if (attackTriggered && !isAttacking)
                 {
                     currentState = PlayerState.Attacking;
+                    StartCoroutine(EndAttack());
                 }
-                /*
-                else if (blockInput)
+                
+                else if (blockTriggered && !isBlocking)
                 {
                     currentState = PlayerState.Blocking;
+                    StartCoroutine(EndBlock());
                 }
-                else if (throwInput)
+                else if (throwTriggered && !isThrowing)
                 {
                     currentState = PlayerState.Throwing;
+                    StartCoroutine(EndThrow());
                 }
+                /*
                 else if (specialMoveInput)
                 {
                     currentState = PlayerState.SpecialMove;
@@ -107,10 +136,6 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case PlayerState.Attacking:
-                if (!attacked)
-                {
-                    currentState = PlayerState.Idle;
-                }
                 break;
         }
     }
@@ -121,7 +146,7 @@ public class PlayerController : MonoBehaviour
         {
             case PlayerState.Idle:
                 Debug.Log("Player is idle.");
-                renderer.sprite = idleSprite;
+                playerSprite.sprite = idleSprite;
                 break;
             case PlayerState.Walking:
                 Vector3 move = new Vector3(movementInput.x, 0, 0);
@@ -130,8 +155,6 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Player is walking.");
                 break;
             case PlayerState.Attacking:
-                renderer.sprite = attackSprite;     
-                StartCoroutine(EndAttack());
                 Debug.Log("Player is attacking.");
                 break;
             case PlayerState.Blocking:
@@ -158,10 +181,44 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator EndAttack()
     {
-        yield return new WaitForSeconds(1.0f);
-        attacked = false;
-
+        combatActionActive = true;
+        isAttacking = true;
+        playerSprite.sprite = attackSprite;
+        yield return new WaitForSeconds(0.25f);
         Debug.Log("Attack has ended.");
+
+        isAttacking = false;
+        attackTriggered = false;
+        combatActionActive = false;
+        currentState = PlayerState.Idle;
+    }
+
+    private IEnumerator EndBlock()
+    {
+        combatActionActive = true;
+        isBlocking = true;
+        playerSprite.sprite = blockSprite;
+        yield return new WaitForSeconds(1.0f);
+        Debug.Log("Block has ended.");
+
+        isBlocking = false;
+        blockTriggered = false;
+        combatActionActive = false;
+        currentState = PlayerState.Idle;
+    }
+
+    private IEnumerator EndThrow()
+    {
+        combatActionActive = true;
+        isThrowing = true;
+        playerSprite.sprite = throwSprite;
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("Throw has ended.");
+
+        isThrowing = false;
+        throwTriggered = false;
+        combatActionActive = false;
+        currentState = PlayerState.Idle;
     }
 
     public void TakeDamage(float damageAmount)
