@@ -20,6 +20,6 @@ public class UIActs : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("CharacterMenu");
     }
 }
