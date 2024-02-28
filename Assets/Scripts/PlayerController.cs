@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
     Player character's initial health points,
     The player character's speed value (probably uniform across all characters)
     */
-    public int playerNumber;
+
+    public int playerID;
     public Vector2 startPosition;
 
     public PlayerState currentState;
@@ -38,6 +39,8 @@ public class PlayerController : MonoBehaviour
     public float playerSpeed = 5f;
 
     private CharacterController controller;
+    private Rigidbody2D rigidbody;
+    private BoxCollider2D collider;
     private SpriteRenderer playerSprite;
     private Vector2 movementInput = Vector2.zero;
 
@@ -59,8 +62,14 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        controller = gameObject.GetComponent<CharacterController>();
+        //controller = gameObject.GetComponent<CharacterController>();
+        rigidbody = gameObject.GetComponent<Rigidbody2D>();
+        collider = gameObject.GetComponent<BoxCollider2D>();
         playerSprite = gameObject.GetComponent<SpriteRenderer>();
+        if (playerID == 2)
+        {
+            playerSprite.flipX = true;
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -149,9 +158,11 @@ public class PlayerController : MonoBehaviour
                 playerSprite.sprite = idleSprite;
                 break;
             case PlayerState.Walking:
+                Vector3 currentPos = gameObject.transform.position;
                 Vector3 move = new Vector3(movementInput.x, 0, 0);
                 Debug.Log(movementInput);
-                controller.Move(move * Time.deltaTime * playerSpeed);
+                //controller.Move(move * Time.deltaTime * playerSpeed);
+                gameObject.transform.position = (currentPos + (move * Time.deltaTime * playerSpeed));
                 Debug.Log("Player is walking.");
                 break;
             case PlayerState.Attacking:
