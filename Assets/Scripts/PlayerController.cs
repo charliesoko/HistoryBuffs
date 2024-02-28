@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -41,8 +42,14 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Rigidbody2D rigidbody;
     private BoxCollider2D collider;
+    private BoxCollider2D HitboxA;
+    private BoxCollider2D HurtboxA;
     private SpriteRenderer playerSprite;
     private Vector2 movementInput = Vector2.zero;
+
+    public GameObject player2;
+    public GameObject HitA;
+    public GameObject HurtA;
 
     private bool isAttacking = false;
     private bool attackTriggered = false;
@@ -65,11 +72,18 @@ public class PlayerController : MonoBehaviour
         //controller = gameObject.GetComponent<CharacterController>();
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
         collider = gameObject.GetComponent<BoxCollider2D>();
+        HitboxA = HitA.GetComponent<BoxCollider2D>();
+        HurtboxA = HurtA.GetComponent<BoxCollider2D>();
         playerSprite = gameObject.GetComponent<SpriteRenderer>();
+
+
         if (playerID == 2)
         {
             playerSprite.flipX = true;
         }
+
+        HurtA.SetActive(false);
+        HitA.SetActive(false);
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -80,8 +94,12 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        HurtA.SetActive(true);
+        HitA.SetActive(true);
+
         if (context.performed && !isAttacking && !attackTriggered && !combatActionActive)
             attackTriggered = true;
+
     }
 
     public void OnBlock(InputAction.CallbackContext context)
@@ -154,19 +172,19 @@ public class PlayerController : MonoBehaviour
         switch (currentState)
         {
             case PlayerState.Idle:
-                Debug.Log("Player is idle.");
+                ////Debug.Log("Player is idle.");
                 playerSprite.sprite = idleSprite;
                 break;
             case PlayerState.Walking:
                 Vector3 currentPos = gameObject.transform.position;
                 Vector3 move = new Vector3(movementInput.x, 0, 0);
-                Debug.Log(movementInput);
+                ////Debug.Log(movementInput);
                 //controller.Move(move * Time.deltaTime * playerSpeed);
                 gameObject.transform.position = (currentPos + (move * Time.deltaTime * playerSpeed));
-                Debug.Log("Player is walking.");
+                ////Debug.Log("Player is walking.");
                 break;
             case PlayerState.Attacking:
-                Debug.Log("Player is attacking.");
+                ////Debug.Log("Player is attacking.");
                 break;
             case PlayerState.Blocking:
                 Debug.Log("Player is blocking.");
@@ -196,7 +214,9 @@ public class PlayerController : MonoBehaviour
         isAttacking = true;
         playerSprite.sprite = attackSprite;
         yield return new WaitForSeconds(0.25f);
-        Debug.Log("Attack has ended.");
+        HurtA.SetActive(false);
+        HitA.SetActive(false);
+        ////Debug.Log("Attack has ended.");
 
         isAttacking = false;
         attackTriggered = false;
@@ -240,5 +260,14 @@ public class PlayerController : MonoBehaviour
             currentState = PlayerState.Lose;
     }
 
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        collider = HurtboxA;
 
+        if (collider.gameObject.CompareTag("Hurtbox"))
+        {
+            Debug.Log("The move has Hit!");
+        }
+
+    }
 }
