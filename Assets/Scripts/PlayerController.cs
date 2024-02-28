@@ -67,7 +67,9 @@ public class PlayerController : MonoBehaviour
         collider = gameObject.GetComponent<BoxCollider2D>();
         playerSprite = gameObject.GetComponent<SpriteRenderer>();
         if (playerID == 2)
+        {
             playerSprite.flipX = true;
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
