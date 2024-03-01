@@ -65,6 +65,13 @@ public class PlayerBase
     public GameObject playerPrefab;
     public StateManager playerStates;
     public int score;
+
+    public enum PlayerType
+    {
+        user,
+        ai,
+        simulation
+    }
 }
 
 [System.Serializable]
