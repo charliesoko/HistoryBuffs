@@ -47,9 +47,12 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer playerSprite;
     private Vector2 movementInput = Vector2.zero;
 
-    public GameObject player2;
+    public string opponentPlayer;
     public GameObject HitA;
     public GameObject HurtA;
+
+    public Vector2 pushBack;
+    public Vector2 opponentPushBack;
 
     private bool isAttacking = false;
     private bool attackTriggered = false;
@@ -262,12 +265,18 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        collider = HurtboxA;
 
-        if (collider.gameObject.CompareTag("Hurtbox"))
+        if (collider.gameObject.CompareTag("HurtboxP2") && collider.gameObject.transform.parent.CompareTag("Player2"))
         {
+            rigidbody.AddForce(pushBack);
+            collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack);
             Debug.Log("The move has Hit!");
         }
 
+
+        else if (collider.gameObject.CompareTag("HurtboxP1") && collider.gameObject.transform.parent.CompareTag("Player1"))
+        {
+            Debug.Log("The move has Hit!");
+        }
     }
 }

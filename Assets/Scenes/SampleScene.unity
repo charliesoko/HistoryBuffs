@@ -135,11 +135,11 @@ GameObject:
   - component: {fileID: 81963558}
   m_Layer: 5
   m_Name: LightHurtbox
-  m_TagString: Hurtbox
+  m_TagString: HurtboxP1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &81963557
 Transform:
   m_ObjectHideFlags: 0
@@ -170,7 +170,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 32
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -187,7 +187,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.1210558, y: -0.65469664}
+  m_Offset: {x: 0.85200214, y: -0.65469664}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -198,7 +198,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.3093915, y: 0.91031563}
+  m_Size: {x: 1.7712841, y: 0.91031563}
   m_EdgeRadius: 0
 --- !u!1 &162804450
 GameObject:
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 213532938}
   m_Layer: 5
   m_Name: IdleHurtBox
-  m_TagString: Hurtbox
+  m_TagString: HurtboxP2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -352,7 +352,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 32
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -369,7 +369,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 9.150715, y: -0.82509637}
+  m_Offset: {x: 9.51, y: -0.82509637}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -380,7 +380,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.201768, y: 3.7264085}
+  m_Size: {x: 2.040338, y: 3.7264085}
   m_EdgeRadius: 0
 --- !u!1 &243700587
 GameObject:
@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 253694700}
   m_Layer: 5
   m_Name: Player2
-  m_TagString: Untagged
+  m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -530,9 +530,11 @@ MonoBehaviour:
   currentState: 0
   healthPoints: 100
   playerSpeed: 5
-  player2: {fileID: 541544341}
+  opponentPlayer: Player1
   HitA: {fileID: 1121520315}
   HurtA: {fileID: 1126658248}
+  pushBack: {x: 100, y: 0}
+  opponentPushBack: {x: -100, y: 0}
   attackSprite: {fileID: 21300000, guid: 54b5104d4b2389ef0835ea8c12635c85, type: 3}
   idleSprite: {fileID: 21300000, guid: 52b3c95a1b846f89996b6b3837f10009, type: 3}
   throwSprite: {fileID: 21300000, guid: f0590c681fa12f9bc9e68730c242d727, type: 3}
@@ -1007,11 +1009,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &541544341 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4735541493257412200, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
-  m_PrefabInstance: {fileID: 2238754791134852962}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1117974722 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9116536063814007146, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
@@ -1029,11 +1026,11 @@ GameObject:
   - component: {fileID: 1121520317}
   m_Layer: 5
   m_Name: LightHitbox
-  m_TagString: Hitbox
+  m_TagString: HitboxP2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1121520316
 Transform:
   m_ObjectHideFlags: 0
@@ -1061,7 +1058,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 32
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1106,11 +1103,11 @@ GameObject:
   - component: {fileID: 1126658250}
   m_Layer: 5
   m_Name: LightHurtbox
-  m_TagString: Hurtbox
+  m_TagString: HurtboxP2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1126658249
 Transform:
   m_ObjectHideFlags: 0
@@ -1141,7 +1138,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 32
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1183,7 +1180,7 @@ GameObject:
   - component: {fileID: 1510867566}
   m_Layer: 5
   m_Name: IdleHurtBox
-  m_TagString: Hurtbox
+  m_TagString: HurtboxP1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1218,7 +1215,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 32
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1392,13 +1389,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2084252481}
   - component: {fileID: 2084252482}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: LightHitbox
-  m_TagString: Hitbox
+  m_TagString: HitboxP1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2084252481
 Transform:
   m_ObjectHideFlags: 0
@@ -1426,7 +1423,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 32
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1446,7 +1443,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.013435, y: -0.6098536}
+  m_Offset: {x: 0.8313463, y: -0.6779373}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1457,7 +1454,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7942975, y: 0.71300817}
+  m_Size: {x: 1.3407989, y: 0.4977678}
   m_EdgeRadius: 0
 --- !u!1001 &2238754791134852962
 PrefabInstance:
@@ -1469,6 +1466,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4735541493257412200, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
       propertyPath: m_Name
+      value: Player1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735541493257412200, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: m_TagString
       value: Player1
       objectReference: {fileID: 0}
     - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
@@ -1483,6 +1484,22 @@ PrefabInstance:
       propertyPath: player2
       value: 
       objectReference: {fileID: 253694694}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: pushBack.x
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: pushBack.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: opponentPlayer
+      value: Player2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: opponentPushBack.x
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 9116536063814007146, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
