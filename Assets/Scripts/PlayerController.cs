@@ -37,10 +37,11 @@ public class PlayerController : MonoBehaviour
 
     public float healthPoints = 100f;
     public float playerSpeed = 5f;
+    public float damageAmount = 20f;
 
     private CharacterController controller;
-    private Rigidbody2D rigidbody;
-    private BoxCollider2D collider;
+    private Rigidbody2D rb;
+    private BoxCollider2D bc;
     private SpriteRenderer playerSprite;
     private Vector2 movementInput = Vector2.zero;
 
@@ -63,8 +64,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         //controller = gameObject.GetComponent<CharacterController>();
-        rigidbody = gameObject.GetComponent<Rigidbody2D>();
-        collider = gameObject.GetComponent<BoxCollider2D>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        bc = gameObject.GetComponent<BoxCollider2D>();
         playerSprite = gameObject.GetComponent<SpriteRenderer>();
         if (playerID == 2)
         {
@@ -239,6 +240,4 @@ public class PlayerController : MonoBehaviour
         if (healthPoints <= 0)
             currentState = PlayerState.Lose;
     }
-
-
 }

@@ -135,7 +135,7 @@
                     "name": "",
                     "id": "7a44b786-b24f-4363-8750-be7d3e5819fa",
                     "path": "<Keyboard>/r",
-                    "interactions": "",
+                    "interactions": "Hold(duration=0.1)",
                     "processors": "",
                     "groups": "Keyboard 1",
                     "action": "Block",
