@@ -24,9 +24,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Block",
+                    "name": "AttackB",
                     "type": "Button",
-                    "id": "516467db-7d25-4e6b-8f48-09d88c098c94",
+                    "id": "c2c07fd6-6884-48df-bcac-ac1015846656",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AttackC",
+                    "type": "Button",
+                    "id": "5b0b9ac7-776f-4360-91ff-51f759990663",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -36,6 +45,15 @@
                     "name": "Throw",
                     "type": "Button",
                     "id": "4b314ce1-2eba-4fc8-a998-a3fad18d2900",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Block",
+                    "type": "Button",
+                    "id": "516467db-7d25-4e6b-8f48-09d88c098c94",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -133,6 +151,50 @@
                 },
                 {
                     "name": "",
+                    "id": "6d920045-1170-4eef-841d-bdc50c48d3c0",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamePad2",
+                    "action": "AttackB",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "19cae896-8e23-4a0d-93ee-7c285117d3a9",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "AttackB",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f75d02a5-cea7-434f-9ad7-bad30f36c8bf",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamePad2",
+                    "action": "AttackC",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "11a97d7a-35bc-4070-b000-599a5d2b2814",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "AttackC",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "7a44b786-b24f-4363-8750-be7d3e5819fa",
                     "path": "<Keyboard>/r",
                     "interactions": "Hold(duration=0.1)",
@@ -144,12 +206,34 @@
                 },
                 {
                     "name": "",
-                    "id": "92173df9-f2c6-47be-9bf4-aa4568d8554c",
-                    "path": "<Gamepad>/buttonNorth",
+                    "id": "08914a40-1966-417e-85a7-38490395c702",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Block",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "da8edaab-5975-4f37-b845-cd9cff671b81",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Block",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cf9eeabd-2c10-4d50-98df-a5010d3fc279",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -160,17 +244,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard 1",
-                    "action": "Throw",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cf9eeabd-2c10-4d50-98df-a5010d3fc279",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
                     "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -200,9 +273,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Block",
+                    "name": "AttackB",
                     "type": "Button",
-                    "id": "3fa44926-cb9c-437d-8ec0-ba4207fa714e",
+                    "id": "f4e991a3-dba0-4759-a16b-12554e47f9e5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AttackC",
+                    "type": "Button",
+                    "id": "8379f263-91c3-46e0-84a4-ff22103fa50a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -212,6 +294,15 @@
                     "name": "Throw",
                     "type": "Button",
                     "id": "535c37b5-bf7a-40b7-bba1-96037e262ddf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Block",
+                    "type": "Button",
+                    "id": "3fa44926-cb9c-437d-8ec0-ba4207fa714e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -287,6 +378,17 @@
                 },
                 {
                     "name": "",
+                    "id": "7886ae6f-5f2f-4036-b298-5014dd0de491",
+                    "path": "<XInputController>/dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamePad2",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "daa4f664-16d6-40f4-9327-a3e94f83c158",
                     "path": "<Keyboard>/f",
                     "interactions": "",
@@ -304,6 +406,72 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f6c89cb-0092-4e49-942f-88d98c259af7",
+                    "path": "<XInputController>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamePad2",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53ab66eb-a4c2-4abc-a76c-04c6a1121872",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard 1",
+                    "action": "Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0708196b-4275-47f6-ac51-66d9bdc62fb5",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5cff7ed9-2570-482b-8fe0-4c485d7d5196",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamePad2",
+                    "action": "Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e26a031-3f6b-4d42-b5b7-8274727aeb2e",
+                    "path": "<XInputController>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamePad2",
+                    "action": "AttackB",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6d2b43d4-513b-449d-94b9-5d11a246d1d0",
+                    "path": "<XInputController>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamePad2",
+                    "action": "AttackC",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -331,23 +499,23 @@
                 },
                 {
                     "name": "",
-                    "id": "53ab66eb-a4c2-4abc-a76c-04c6a1121872",
-                    "path": "<Keyboard>/t",
+                    "id": "5b2a5adb-f584-4ebc-99f5-970474503574",
+                    "path": "<XInputController>/rightTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard 1",
-                    "action": "Throw",
+                    "groups": "GamePad2",
+                    "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "0708196b-4275-47f6-ac51-66d9bdc62fb5",
-                    "path": "<Gamepad>/buttonEast",
+                    "id": "94453eb4-ea68-429a-9ce1-883a66bf3e4c",
+                    "path": "<XInputController>/leftTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Throw",
+                    "groups": "GamePad2",
+                    "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -384,6 +552,17 @@
                 {
                     "devicePath": "<DualShockGamepad>",
                     "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "GamePad2",
+            "bindingGroup": "GamePad2",
+            "devices": [
+                {
+                    "devicePath": "<XInputController>",
+                    "isOptional": false,
                     "isOR": false
                 }
             ]

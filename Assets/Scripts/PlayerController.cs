@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -40,10 +42,29 @@ public class PlayerController : MonoBehaviour
     public float damageAmount = 20f;
 
     private CharacterController controller;
-    private Rigidbody2D rb;
-    private BoxCollider2D bc;
+    private Rigidbody2D rigidbody;
+    private BoxCollider2D collider;
+    private BoxCollider2D HitboxD;
+    private BoxCollider2D HurtboxD;
     private SpriteRenderer playerSprite;
     private Vector2 movementInput = Vector2.zero;
+
+    public string opponentPlayer;
+
+    public GameObject HitA;
+    public GameObject HurtA;
+
+    public GameObject HitB;
+    public GameObject HurtB;
+
+    public GameObject HitC;
+    public GameObject HurtC;
+
+    public GameObject HitD;
+    public GameObject HurtD;
+
+    public Vector2 pushBack;
+    public Vector2 opponentPushBack;
 
     private bool isAttacking = false;
     private bool attackTriggered = false;
@@ -64,13 +85,26 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         //controller = gameObject.GetComponent<CharacterController>();
-        rb = gameObject.GetComponent<Rigidbody2D>();
-        bc = gameObject.GetComponent<BoxCollider2D>();
+        rigidbody = gameObject.GetComponent<Rigidbody2D>();
+        collider = gameObject.GetComponent<BoxCollider2D>();
+        HitboxD = HitD.GetComponent<BoxCollider2D>();
+        HurtboxD = HurtD.GetComponent<BoxCollider2D>();
         playerSprite = gameObject.GetComponent<SpriteRenderer>();
+
+
         if (playerID == 2)
         {
             playerSprite.flipX = true;
         }
+
+        HurtA.SetActive(false);
+        HitA.SetActive(false);
+        HurtB.SetActive(false);
+        HitB.SetActive(false);
+        HurtC.SetActive(false);
+        HitC.SetActive(false);
+        HurtD.SetActive(false);
+        HitD.SetActive(false);
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -81,10 +115,31 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        HurtA.SetActive(true);
+        HitA.SetActive(true);
+
         if (context.performed && !isAttacking && !attackTriggered && !combatActionActive)
             attackTriggered = true;
-    }
 
+    }
+    public void OnAttackB(InputAction.CallbackContext context)
+    {
+        HurtB.SetActive(true);
+        HitB.SetActive(true);
+
+        if (context.performed && !isAttacking && !attackTriggered && !combatActionActive)
+            attackTriggered = true;
+
+    }
+    public void OnAttackC(InputAction.CallbackContext context)
+    {
+        HurtC.SetActive(true);
+        HitC.SetActive(true);
+
+        if (context.performed && !isAttacking && !attackTriggered && !combatActionActive)
+            attackTriggered = true;
+
+    }
     public void OnBlock(InputAction.CallbackContext context)
     {
         if (context.performed && !isBlocking && !blockTriggered && !combatActionActive)
@@ -93,6 +148,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnThrow(InputAction.CallbackContext context)
     {
+        HitD.SetActive(true);
+        HurtD.SetActive(true);
+
         if (context.performed && !isThrowing && !throwTriggered && !combatActionActive)
             throwTriggered = true;
     }
@@ -101,6 +159,12 @@ public class PlayerController : MonoBehaviour
     {
         UpdateState(movementInput);
         PerformStateActions();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
+
     }
 
     /*
@@ -155,19 +219,19 @@ public class PlayerController : MonoBehaviour
         switch (currentState)
         {
             case PlayerState.Idle:
-                Debug.Log("Player is idle.");
+                ////Debug.Log("Player is idle.");
                 playerSprite.sprite = idleSprite;
                 break;
             case PlayerState.Walking:
                 Vector3 currentPos = gameObject.transform.position;
                 Vector3 move = new Vector3(movementInput.x, 0, 0);
-                Debug.Log(movementInput);
+                ////Debug.Log(movementInput);
                 //controller.Move(move * Time.deltaTime * playerSpeed);
                 gameObject.transform.position = (currentPos + (move * Time.deltaTime * playerSpeed));
-                Debug.Log("Player is walking.");
+                ////Debug.Log("Player is walking.");
                 break;
             case PlayerState.Attacking:
-                Debug.Log("Player is attacking.");
+                ////Debug.Log("Player is attacking.");
                 break;
             case PlayerState.Blocking:
                 Debug.Log("Player is blocking.");
@@ -197,7 +261,15 @@ public class PlayerController : MonoBehaviour
         isAttacking = true;
         playerSprite.sprite = attackSprite;
         yield return new WaitForSeconds(0.25f);
-        Debug.Log("Attack has ended.");
+
+        HurtA.SetActive(false);
+        HitA.SetActive(false);
+        HurtB.SetActive(false);
+        HitB.SetActive(false);
+        HurtC.SetActive(false);
+        HitC.SetActive(false);
+
+        ////Debug.Log("Attack has ended.");
 
         isAttacking = false;
         attackTriggered = false;
@@ -225,6 +297,10 @@ public class PlayerController : MonoBehaviour
         isThrowing = true;
         playerSprite.sprite = throwSprite;
         yield return new WaitForSeconds(0.5f);
+
+        HitD.SetActive(false);
+        HurtD.SetActive(false);
+
         Debug.Log("Throw has ended.");
 
         isThrowing = false;
@@ -239,5 +315,70 @@ public class PlayerController : MonoBehaviour
 
         if (healthPoints <= 0)
             currentState = PlayerState.Lose;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+
+        if (collider.gameObject.CompareTag("HurtboxP2") && collider.gameObject.transform.parent.CompareTag("Player2"))
+        {
+
+            if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.Blocking)
+            {
+                if (currentState == PlayerState.Throwing)
+                {
+                    rigidbody.AddForce(pushBack * 0);
+                    collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 300));
+                }
+                else
+                {
+                    rigidbody.AddForce(pushBack);
+                    collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack);
+                }
+            }
+            else if (currentState == PlayerState.Throwing)
+            {
+                rigidbody.AddForce(pushBack * 0);
+                collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 300));
+            }
+            else
+            {
+                rigidbody.AddForce(pushBack * 0);
+                collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack * 4);
+            }
+
+            Debug.Log("The move has Hit!");
+        }
+
+
+        else if (collider.gameObject.CompareTag("HurtboxP1") && collider.gameObject.transform.parent.CompareTag("Player1"))
+        {
+
+            if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.Blocking)
+            {
+                if (currentState == PlayerState.Throwing)
+                {
+                    rigidbody.AddForce(pushBack * 0);
+                    collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 300));
+                }
+                else
+                {
+                    rigidbody.AddForce(pushBack);
+                    collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack);
+                }
+            }
+            else if (currentState == PlayerState.Throwing)
+            {
+                rigidbody.AddForce(pushBack * 0);
+                collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 300));
+            }
+            else
+            {
+                rigidbody.AddForce(pushBack * 0);
+                collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack * 4);
+            }
+
+            Debug.Log("The move has Hit!");
+        }
     }
 }

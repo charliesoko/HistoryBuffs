@@ -4,7 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Hurtbox
+  - HitboxP1
+  - HurtboxP1
+  - HitboxP2
+  - HurtboxP2
+  - Player2
+  - Player1
   layers:
   - Default
   - TransparentFX
