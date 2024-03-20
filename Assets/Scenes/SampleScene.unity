@@ -769,6 +769,8 @@ MonoBehaviour:
   healthPoints: 100
   playerSpeed: 5
   opponentPlayer: Player1
+  Player1pos: {fileID: 1117974722}
+  Player2pos: {fileID: 253694695}
   HitA: {fileID: 1823565735}
   HurtA: {fileID: 1459689711}
   HitB: {fileID: 721970464}
@@ -1011,7 +1013,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &253694701
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2665,6 +2667,14 @@ PrefabInstance:
       propertyPath: player2
       value: 
       objectReference: {fileID: 253694694}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: Player1pos
+      value: 
+      objectReference: {fileID: 1117974722}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: Player2pos
+      value: 
+      objectReference: {fileID: 253694695}
     - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
       propertyPath: pushBack.x
       value: -400

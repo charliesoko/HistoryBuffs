@@ -48,7 +48,14 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer playerSprite;
     private Vector2 movementInput = Vector2.zero;
 
+    private float LossDepth = -20f;
+
     public string opponentPlayer;
+
+    public Transform Player1pos;
+    public Transform Player2pos;
+    //////private Transform P1Startpos;
+    //////private Transform P2Startpos;
 
     public GameObject HitA;
     public GameObject HurtA;
@@ -66,9 +73,15 @@ public class PlayerController : MonoBehaviour
     public Vector2 opponentPushBack;
 
     private bool isAttacking = false;
+    private bool isAttackingB = false;
+    private bool isAttackingC = false;
     private bool attackTriggered = false;
+    private bool attackTriggeredB = false;
+    private bool attackTriggeredC = false;
 
     private bool combatActionActive = false; //bool to indicate if the player is current involved in a combat action
+    private bool combatActionActiveB = false;
+    private bool combatActionActiveC = false;
 
     private bool isBlocking = false;
     private bool blockTriggered = false;
@@ -91,6 +104,12 @@ public class PlayerController : MonoBehaviour
         playerSprite = gameObject.GetComponent<SpriteRenderer>();
 
 
+        //////P1Startpos = Player1pos;
+        //////P2Startpos = Player2pos;
+
+        //////P1Startpos.position = Player1pos.position;
+        //////P2Startpos.position = Player2pos.position;
+
         if (playerID == 2)
         {
             playerSprite.flipX = true;
@@ -110,6 +129,15 @@ public class PlayerController : MonoBehaviour
     {
         if (!combatActionActive)
             movementInput = context.ReadValue<Vector2>();
+
+        //HurtA.SetActive(false);
+        //HitA.SetActive(false);
+        //HurtB.SetActive(false);
+        //HitB.SetActive(false);
+        //HurtC.SetActive(false);
+        //HitC.SetActive(false);
+        //HurtD.SetActive(false);
+        //HitD.SetActive(false);
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -126,8 +154,8 @@ public class PlayerController : MonoBehaviour
         HurtB.SetActive(true);
         HitB.SetActive(true);
 
-        if (context.performed && !isAttacking && !attackTriggered && !combatActionActive)
-            attackTriggered = true;
+        if (context.performed && !isAttackingB && !attackTriggeredB && !combatActionActiveB)
+            attackTriggeredB = true;
 
     }
     public void OnAttackC(InputAction.CallbackContext context)
@@ -135,14 +163,24 @@ public class PlayerController : MonoBehaviour
         HurtC.SetActive(true);
         HitC.SetActive(true);
 
-        if (context.performed && !isAttacking && !attackTriggered && !combatActionActive)
-            attackTriggered = true;
+        if (context.performed && !isAttackingC && !attackTriggeredC && !combatActionActiveC)
+            attackTriggeredC = true;
 
     }
     public void OnBlock(InputAction.CallbackContext context)
     {
         if (context.performed && !isBlocking && !blockTriggered && !combatActionActive)
             blockTriggered = true;
+
+        HurtA.SetActive(false);
+        HitA.SetActive(false);
+        HurtB.SetActive(false);
+        HitB.SetActive(false);
+        HurtC.SetActive(false);
+        HitC.SetActive(false);
+        HurtD.SetActive(false);
+        HitD.SetActive(false);
+
     }
 
     public void OnThrow(InputAction.CallbackContext context)
@@ -164,6 +202,15 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene("SampleScene");
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("CharacterMenu");
+        }
+
+        if (Player1pos.position.y <= LossDepth || Player2pos.position.y <= LossDepth)
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
     }
 
     /*
@@ -177,11 +224,31 @@ public class PlayerController : MonoBehaviour
                 if (moveInput.x != 0)
                 {
                     currentState = PlayerState.Walking;
+
+                    HurtA.SetActive(false);
+                    HitA.SetActive(false);
+                    HurtB.SetActive(false);
+                    HitB.SetActive(false);
+                    HurtC.SetActive(false);
+                    HitC.SetActive(false);
+                    HurtD.SetActive(false);
+                    HitD.SetActive(false);
+
                 }
                 else if (attackTriggered && !isAttacking)
                 {
                     currentState = PlayerState.Attacking;
-                    StartCoroutine(EndAttack());
+                    StartCoroutine(AttackA());
+                }
+                else if (attackTriggeredB && !isAttackingB)
+                {
+                    currentState = PlayerState.Attacking;
+                    StartCoroutine(AttackB());
+                }
+                else if (attackTriggeredC && !isAttackingC)
+                {
+                    currentState = PlayerState.Attacking;
+                    StartCoroutine(AttackC());
                 }
                 
                 else if (blockTriggered && !isBlocking)
@@ -205,6 +272,16 @@ public class PlayerController : MonoBehaviour
                 if (movementInput.x == 0)
                 {
                     currentState = PlayerState.Idle;
+
+                    HurtA.SetActive(false);
+                    HitA.SetActive(false);
+                    HurtB.SetActive(false);
+                    HitB.SetActive(false);
+                    HurtC.SetActive(false);
+                    HitC.SetActive(false);
+                    HurtD.SetActive(false);
+                    HitD.SetActive(false);
+
                 }
                 break;
 
@@ -254,25 +331,81 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private IEnumerator EndAttack()
+    private IEnumerator AttackA()
     {
         combatActionActive = true;
         isAttacking = true;
         playerSprite.sprite = attackSprite;
         yield return new WaitForSeconds(0.25f);
 
-        HurtA.SetActive(false);
-        HitA.SetActive(false);
-        HurtB.SetActive(false);
+
         HitB.SetActive(false);
-        HurtC.SetActive(false);
+        HitA.SetActive(false);
         HitC.SetActive(false);
+
+        yield return new WaitForSeconds(0.25f);
+
+        HurtB.SetActive(false);
+        HurtC.SetActive(false);
+        HurtA.SetActive(false);
 
         ////Debug.Log("Attack has ended.");
 
         isAttacking = false;
         attackTriggered = false;
         combatActionActive = false;
+        currentState = PlayerState.Idle;
+    }
+
+    private IEnumerator AttackB()
+    {
+        combatActionActiveB = true;
+        isAttackingB = true;
+        playerSprite.sprite = attackSprite;
+        yield return new WaitForSeconds(0.5f);
+
+
+        HitB.SetActive(false);
+        HitA.SetActive(false);
+        HitC.SetActive(false);
+
+        yield return new WaitForSeconds(0.5f);
+
+        HurtB.SetActive(false);
+        HurtC.SetActive(false);
+        HurtA.SetActive(false);
+
+        ////Debug.Log("Attack has ended.");
+
+        isAttackingB = false;
+        attackTriggeredB = false;
+        combatActionActiveB = false;
+        currentState = PlayerState.Idle;
+    }
+
+    private IEnumerator AttackC()
+    {
+        combatActionActiveC = true;
+        isAttackingC = true;
+        playerSprite.sprite = attackSprite;
+        yield return new WaitForSeconds(1f);
+
+
+        HitB.SetActive(false);
+        HitA.SetActive(false);
+        HitC.SetActive(false);
+
+        yield return new WaitForSeconds(1f);
+
+        HurtB.SetActive(false);
+        HurtC.SetActive(false);
+        HurtA.SetActive(false);
+
+        ////Debug.Log("Attack has ended.");
+
+        isAttackingC = false;
+        attackTriggeredC = false;
+        combatActionActiveC = false;
         currentState = PlayerState.Idle;
     }
 
