@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
     public float healthPoints = 100f;
     public float playerSpeed = 5f;
+    public float damageAmount = 20f;
 
     private CharacterController controller;
     private Rigidbody2D rigidbody;
