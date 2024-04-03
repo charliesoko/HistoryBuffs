@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BattleUI : MonoBehaviour
 {
-    public Text AnnouncerTextLine1;
-    public Text AnnouncerTextLine2;
-    public Text BattleTimer;
+    public TextMeshProUGUI announcerTextLine1;
+    public TextMeshProUGUI announcerTextLine2;
+    public TextMeshProUGUI battleTimer;
 
     public Slider[] healthBars;
 
