@@ -89,10 +89,37 @@ public class PlayerController : MonoBehaviour
     private bool isThrowing = false;
     private bool throwTriggered = false;
 
+    public float delayAHitBActivate;
+    public float delayAHurtBActivate;
+    public float delayAHitBDeactivate;
+    public float delayAHurtBDeactivate;
+
+    public float delayBHitBActivate;
+    public float delayBHurtBActivate;
+    public float delayBHitBDeactivate;
+    public float delayBHurtBDeactivate;
+
+    public float delayCHitBActivate;
+    public float delayCHurtBActivate;
+    public float delayCHitBDeactivate;
+    public float delayCHurtBDeactivate;
+
+    public float delayDHitBActivate;
+    public float delayDHurtBActivate;
+    public float delayDHitBDeactivate;
+    public float delayDHurtBDeactivate;
+
+    public float hitStunA;
+    public float hitStunB;
+    public float hitStunC;
+
     public Sprite attackSprite;
+    public Sprite attackBSprite;
+    public Sprite attackCSprite;
     public Sprite idleSprite;
     public Sprite throwSprite;
     public Sprite blockSprite;
+    public Sprite hitRecieved;
 
     private void Start()
     {
@@ -142,8 +169,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        HurtA.SetActive(true);
-        HitA.SetActive(true);
 
         if (context.performed && !isAttacking && !attackTriggered && !combatActionActive)
             attackTriggered = true;
@@ -151,8 +176,6 @@ public class PlayerController : MonoBehaviour
     }
     public void OnAttackB(InputAction.CallbackContext context)
     {
-        HurtB.SetActive(true);
-        HitB.SetActive(true);
 
         if (context.performed && !isAttackingB && !attackTriggeredB && !combatActionActiveB)
             attackTriggeredB = true;
@@ -160,8 +183,6 @@ public class PlayerController : MonoBehaviour
     }
     public void OnAttackC(InputAction.CallbackContext context)
     {
-        HurtC.SetActive(true);
-        HitC.SetActive(true);
 
         if (context.performed && !isAttackingC && !attackTriggeredC && !combatActionActiveC)
             attackTriggeredC = true;
@@ -185,8 +206,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnThrow(InputAction.CallbackContext context)
     {
-        HitD.SetActive(true);
-        HurtD.SetActive(true);
 
         if (context.performed && !isThrowing && !throwTriggered && !combatActionActive)
             throwTriggered = true;
@@ -285,6 +304,10 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
 
+            case PlayerState.Damaged:
+                StartCoroutine(HitStun());
+                break;
+
             case PlayerState.Attacking:
                 break;
         }
@@ -310,16 +333,16 @@ public class PlayerController : MonoBehaviour
                 ////Debug.Log("Player is attacking.");
                 break;
             case PlayerState.Blocking:
-                Debug.Log("Player is blocking.");
+                ////Debug.Log("Player is blocking.");
                 break;
             case PlayerState.Throwing:
-                Debug.Log("Player is throwing.");
+                ////Debug.Log("Player is throwing.");
                 break;
             case PlayerState.SpecialMove:
                 Debug.Log("Player is using a special move.");
                 break;
             case PlayerState.Damaged:
-                Debug.Log("Player is damaged.");
+                ////Debug.Log("Player is damaged.");
                 break;
             case PlayerState.Lose:
                 Debug.Log("Player lost.");
@@ -335,16 +358,24 @@ public class PlayerController : MonoBehaviour
     {
         combatActionActive = true;
         isAttacking = true;
+
+
+        yield return new WaitForSeconds(delayAHurtBActivate);
+        HurtA.SetActive(true);
+
+
+        yield return new WaitForSeconds(delayAHitBActivate);
+        HitA.SetActive(true);
         playerSprite.sprite = attackSprite;
-        yield return new WaitForSeconds(0.25f);
 
 
+        yield return new WaitForSeconds(delayAHitBDeactivate);
         HitB.SetActive(false);
         HitA.SetActive(false);
         HitC.SetActive(false);
 
-        yield return new WaitForSeconds(0.25f);
 
+        yield return new WaitForSeconds(delayAHurtBDeactivate);
         HurtB.SetActive(false);
         HurtC.SetActive(false);
         HurtA.SetActive(false);
@@ -361,16 +392,20 @@ public class PlayerController : MonoBehaviour
     {
         combatActionActiveB = true;
         isAttackingB = true;
-        playerSprite.sprite = attackSprite;
-        yield return new WaitForSeconds(0.5f);
 
+        yield return new WaitForSeconds(delayBHurtBActivate);
+        HurtB.SetActive(true);
 
+        yield return new WaitForSeconds(delayBHitBActivate);
+        playerSprite.sprite = attackBSprite;
+        HitB.SetActive(true);
+
+        yield return new WaitForSeconds(delayBHitBDeactivate);
         HitB.SetActive(false);
         HitA.SetActive(false);
         HitC.SetActive(false);
 
-        yield return new WaitForSeconds(0.5f);
-
+        yield return new WaitForSeconds(delayBHurtBDeactivate);
         HurtB.SetActive(false);
         HurtC.SetActive(false);
         HurtA.SetActive(false);
@@ -387,16 +422,20 @@ public class PlayerController : MonoBehaviour
     {
         combatActionActiveC = true;
         isAttackingC = true;
-        playerSprite.sprite = attackSprite;
-        yield return new WaitForSeconds(1f);
 
+        yield return new WaitForSeconds(delayCHurtBActivate);
+        HurtC.SetActive(true);
 
+        yield return new WaitForSeconds(delayCHitBActivate);
+        playerSprite.sprite = attackCSprite;
+        HitC.SetActive(true);
+
+        yield return new WaitForSeconds(delayCHitBDeactivate);
         HitB.SetActive(false);
         HitA.SetActive(false);
         HitC.SetActive(false);
 
-        yield return new WaitForSeconds(1f);
-
+        yield return new WaitForSeconds(delayCHurtBDeactivate);
         HurtB.SetActive(false);
         HurtC.SetActive(false);
         HurtA.SetActive(false);
@@ -427,10 +466,18 @@ public class PlayerController : MonoBehaviour
     {
         combatActionActive = true;
         isThrowing = true;
-        playerSprite.sprite = throwSprite;
-        yield return new WaitForSeconds(0.5f);
 
+        yield return new WaitForSeconds(delayDHurtBActivate);
+        HurtD.SetActive(true);
+
+        yield return new WaitForSeconds(delayDHitBActivate);
+        HitD.SetActive(true);
+        playerSprite.sprite = throwSprite;
+
+        yield return new WaitForSeconds(delayDHitBDeactivate);
         HitD.SetActive(false);
+
+        yield return new WaitForSeconds(delayDHurtBDeactivate);
         HurtD.SetActive(false);
 
         Debug.Log("Throw has ended.");
@@ -447,6 +494,14 @@ public class PlayerController : MonoBehaviour
 
         if (healthPoints <= 0)
             currentState = PlayerState.Lose;
+    }
+
+    private IEnumerator HitStun()
+    {
+        playerSprite.sprite = hitRecieved;
+        yield return new WaitForSeconds(hitStunC);
+
+        currentState = PlayerState.Idle;
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -477,6 +532,7 @@ public class PlayerController : MonoBehaviour
             {
                 rigidbody.AddForce(pushBack * 0);
                 collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack * 4);
+                collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
             }
 
             Debug.Log("The move has Hit!");
@@ -508,6 +564,7 @@ public class PlayerController : MonoBehaviour
             {
                 rigidbody.AddForce(pushBack * 0);
                 collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack * 4);
+                collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
             }
 
             Debug.Log("The move has Hit!");

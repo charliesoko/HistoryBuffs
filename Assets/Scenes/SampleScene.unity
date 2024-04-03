@@ -780,11 +780,34 @@ MonoBehaviour:
   HitD: {fileID: 246757184}
   HurtD: {fileID: 2034244614}
   pushBack: {x: 400, y: 0}
-  opponentPushBack: {x: -50, y: 0}
+  opponentPushBack: {x: -25, y: 0}
+  isHit: 0
+  delayAHitBActivate: 0.1
+  delayAHurtBActivate: 0
+  delayAHitBDeactivate: 0.1
+  delayAHurtBDeactivate: 0.1
+  delayBHitBActivate: 0.2
+  delayBHurtBActivate: 0
+  delayBHitBDeactivate: 0.15
+  delayBHurtBDeactivate: 0.1
+  delayCHitBActivate: 0.3
+  delayCHurtBActivate: 0
+  delayCHitBDeactivate: 0.15
+  delayCHurtBDeactivate: 0.15
+  delayDHitBActivate: 0.1
+  delayDHurtBActivate: 0
+  delayDHitBDeactivate: 0.1
+  delayDHurtBDeactivate: 0
+  hitStunA: 0.1
+  hitStunB: 0.2
+  hitStunC: 0.1
   attackSprite: {fileID: 21300000, guid: 54b5104d4b2389ef0835ea8c12635c85, type: 3}
+  attackBSprite: {fileID: 21300000, guid: 18fa790f0f60b99d1999159135286928, type: 3}
+  attackCSprite: {fileID: 21300000, guid: f0590c681fa12f9bc9e68730c242d727, type: 3}
   idleSprite: {fileID: 21300000, guid: 52b3c95a1b846f89996b6b3837f10009, type: 3}
-  throwSprite: {fileID: 21300000, guid: f0590c681fa12f9bc9e68730c242d727, type: 3}
-  blockSprite: {fileID: 21300000, guid: 18fa790f0f60b99d1999159135286928, type: 3}
+  throwSprite: {fileID: 21300000, guid: 72ed03fc7bded9ec4ac719b5f59e32d6, type: 3}
+  blockSprite: {fileID: 21300000, guid: 07dbdb71b576e413ca36fa9a17a768f5, type: 3}
+  hitRecieved: {fileID: 21300000, guid: ad78f42d71887118086bde670cc134b0, type: 3}
 --- !u!114 &253694697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2668,6 +2691,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 253694694}
     - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: hitStunA
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: hitStunB
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: hitStunC
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
       propertyPath: Player1pos
       value: 
       objectReference: {fileID: 1117974722}
@@ -2684,12 +2719,80 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: hitRecieved
+      value: 
+      objectReference: {fileID: 21300000, guid: 307e3ebd9b035fde681fa47415f1b723, type: 3}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: attackSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2ed3466ff6ba052b2aab682a4f8bde84, type: 3}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: attackBSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 62711bf9c6cdd88a5b63f4f30b3004a1, type: 3}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: attackCSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dde52049aa6e41870b19416e4fb4537d, type: 3}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
       propertyPath: opponentPlayer
       value: Player2
       objectReference: {fileID: 0}
     - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: delayAHitBActivate
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: delayBHitBActivate
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: delayCHitBActivate
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: delayDHitBActivate
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
       propertyPath: opponentPushBack.x
-      value: 50
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: delayAHurtBActivate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: delayAHitBDeactivate
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: delayBHitBDeactivate
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: delayCHitBDeactivate
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: delayDHitBDeactivate
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: delayAHurtBDeactivate
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: delayBHurtBDeactivate
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: delayCHurtBDeactivate
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: delayDHurtBDeactivate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9116536063814007146, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
       propertyPath: m_Pivot.x
