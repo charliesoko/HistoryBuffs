@@ -781,7 +781,6 @@ MonoBehaviour:
   HurtD: {fileID: 2034244614}
   pushBack: {x: 400, y: 0}
   opponentPushBack: {x: -25, y: 0}
-  isHit: 0
   delayAHitBActivate: 0.1
   delayAHurtBActivate: 0
   delayAHitBDeactivate: 0.1
@@ -800,7 +799,8 @@ MonoBehaviour:
   delayDHurtBDeactivate: 0
   hitStunA: 0.1
   hitStunB: 0.2
-  hitStunC: 0.1
+  hitStunC: 0.4
+  hitStunD: 1.5
   attackSprite: {fileID: 21300000, guid: 54b5104d4b2389ef0835ea8c12635c85, type: 3}
   attackBSprite: {fileID: 21300000, guid: 18fa790f0f60b99d1999159135286928, type: 3}
   attackCSprite: {fileID: 21300000, guid: f0590c681fa12f9bc9e68730c242d727, type: 3}
@@ -2700,7 +2700,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
       propertyPath: hitStunC
-      value: 0.3
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: hitStunD
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
       propertyPath: Player1pos
