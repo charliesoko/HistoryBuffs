@@ -49,7 +49,7 @@ public class BattleManager : MonoBehaviour
     IEnumerator StartGame()
     {
         //Create the player characters
-        //yield return CreatePlayers();
+        yield return CreatePlayers();
 
         //Start the round
         yield return InitializeRound();
@@ -64,7 +64,9 @@ public class BattleManager : MonoBehaviour
             GameObject go = Instantiate(charManager.players[i].playerPrefab, spawnPositions[i].position, Quaternion.identity) as GameObject;
 
             //Get references to player StateManagers and health sliders in scene
-            charManager.players[i].playerStates = go.GetComponent<StateManager>();
+            //charManager.players[i].playerStates = go.GetComponent<StateManager>();
+
+            charManager.players[i].playerStates = go.GetComponent<PlayerController>();
             charManager.players[i].playerStates.healthSlider = battleUI.healthBars[i];
         }
 
@@ -82,7 +84,7 @@ public class BattleManager : MonoBehaviour
         countdown = false;
 
         //Initialize players each round
-        //yield return InitializePlayers();
+        yield return InitializePlayers();
 
         //Enable player controls
         yield return EnableControls();
@@ -93,7 +95,7 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < charManager.players.Count; i++)
         {
             //Initialize player health and spawn location each round; adjust later on to use health value that can be adjusted in inspector rather than hard-coded
-            charManager.players[i].playerStates.health = 100;
+            charManager.players[i].playerStates.healthPoints = 100;
             //initialize animation
             charManager.players[i].playerStates.transform.position = spawnPositions[i].position;
         }
@@ -113,6 +115,7 @@ public class BattleManager : MonoBehaviour
         yield return oneSec;
         yield return oneSec;
 
+        /*
         //Text color and size increases as it counts down
         text1.color = Color.green;
         //text1.fontSize = 36;
@@ -127,6 +130,14 @@ public class BattleManager : MonoBehaviour
         text1.color = Color.red;
         //text1.fontSize = text1.fontSize + 8;
         text1.text = ("1");
+        yield return oneSec;
+        */
+
+        text1.color = Color.red;
+        //text1.fontSize = text1.fontSize + 10;
+        text1.text = ("READY!");
+        yield return oneSec;
+        yield return oneSec;
         yield return oneSec;
 
         text1.color = Color.red;
@@ -210,5 +221,115 @@ public class BattleManager : MonoBehaviour
         yield return oneSec;
         yield return oneSec;
         yield return oneSec;
+
+        PlayerBase winPlayer = FindWinningPlayer();
+
+        if (winPlayer == null)
+        {
+            battleUI.announcerTextLine1.text = "Draw";
+            battleUI.announcerTextLine1.color = Color.red;
+            battleUI.announcerTextLine1.fontSize = 90;
+        }
+        else
+        {
+            battleUI.announcerTextLine1.text = winPlayer.playerID + " Wins!";
+            battleUI.announcerTextLine1.color = Color.red;
+            battleUI.announcerTextLine1.fontSize = 90;
+        }
+
+        yield return oneSec;
+        yield return oneSec;
+        yield return oneSec;
+
+        battleUI.announcerTextLine1.gameObject.SetActive(false);
+
+        if (winPlayer != null)
+        {
+            if (winPlayer.playerStates.healthPoints == 100)
+            {
+                battleUI.announcerTextLine2.gameObject.SetActive(true);
+                battleUI.announcerTextLine2.text = "Flawless Victory!";
+                battleUI.announcerTextLine2.color = Color.red;
+                battleUI.announcerTextLine2.fontSize = 110;
+            }
+        }
+
+        yield return oneSec;
+        yield return oneSec;
+        yield return oneSec;
+
+        currentRound++;
+
+        bool matchOver = isMatchOver();
+
+        if (!matchOver)
+        {
+            StartCoroutine("InitializeRound");
+        }
+        else
+        {
+            for (int i = 0; i < charManager.players.Count; i++)
+            {
+                charManager.players[i].score = 0;
+                charManager.players[i].hasCharacter = false;
+            }
+
+            SceneManager.LoadSceneAsync("Select");
+        }
+    }
+
+    PlayerBase FindWinningPlayer()
+    {
+        PlayerBase returnValue = null;
+
+        //StateManager targetPlayer = null;
+        PlayerController targetPlayer = null;
+
+        if (charManager.players[0].playerStates.healthPoints != charManager.players[1].playerStates.healthPoints)
+        {
+            if (charManager.players[0].playerStates.healthPoints < charManager.players[1].playerStates.healthPoints)
+            {
+                charManager.players[1].score++;
+                targetPlayer = charManager.players[1].playerStates;
+                battleUI.AddWin(1);
+            }
+            else
+            {
+                charManager.players[0].score++;
+                targetPlayer = charManager.players[0].playerStates;
+                battleUI.AddWin(0);
+            }
+
+            returnValue = charManager.returnPlayerFromStates(targetPlayer);
+        }
+
+        return returnValue;
+    }
+
+    bool isMatchOver()
+    {
+        bool returnValue = false;
+
+        for (int i = 0; i < charManager.players.Count; i++)
+        {
+            if (charManager.players[i].score >= maxRounds)
+            {
+                returnValue = true;
+                break;
+            }
+        }
+
+        return returnValue;
+    }
+
+    public static BattleManager instance;
+    public static BattleManager GetInstance()
+    {
+        return instance;
+    }
+
+    private void Awake()
+    {
+        instance = this;
     }
 }

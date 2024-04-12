@@ -157,7 +157,7 @@ public class SelectSceneManager : MonoBehaviour
 
         if(!string.Equals(p1.playerBase.playerID, charManager.players[0].playerID))
         {
-            p1.createdChar.GetComponent<StateManager>().lookRight = false;
+            p1.createdChar.GetComponent<PlayerController>().lookRight = true;
         }
     }
 
