@@ -24,7 +24,7 @@ public class CharacterManager : MonoBehaviour
         return returnValue;
     }
 
-    public PlayerBase returnPlayerFromStates(StateManager states)
+    public PlayerBase returnPlayerFromStates(PlayerController states) //(StateManager states)
     {
         PlayerBase returnValue = null;
 
@@ -63,7 +63,10 @@ public class PlayerBase
     public PlayerType playerType;
     public bool hasCharacter;
     public GameObject playerPrefab;
-    public StateManager playerStates;
+
+    //public StateManager playerStates;
+    public PlayerController playerStates;
+
     public int score;
 
     public enum PlayerType

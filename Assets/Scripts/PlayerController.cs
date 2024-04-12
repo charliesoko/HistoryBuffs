@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 
@@ -38,6 +39,9 @@ public class PlayerController : MonoBehaviour
     public PlayerState currentState;
 
     public float healthPoints = 100f;
+    public UnityEngine.UI.Slider healthSlider;
+    public bool lookRight = true;
+
     public float playerSpeed = 5f;
     public float damageAmount = 20f;
 
@@ -92,10 +96,10 @@ public class PlayerController : MonoBehaviour
         playerSprite = gameObject.GetComponent<SpriteRenderer>();
 
 
-        if (playerID == 2)
+        /*if (playerID == 2)
         {
             playerSprite.flipX = true;
-        }
+        }*/
 
         HurtA.SetActive(false);
         HitA.SetActive(false);
@@ -160,11 +164,29 @@ public class PlayerController : MonoBehaviour
         UpdateState(movementInput);
         PerformStateActions();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
             SceneManager.LoadScene("SampleScene");
         }
 
+    }
+
+    private void FixedUpdate()
+    {
+        playerSprite.flipX = lookRight;
+
+        if (healthSlider != null)
+        {
+            healthSlider.value = healthPoints * 0.01f;
+        }
+
+        if (healthPoints < 0)
+        {
+            if (BattleManager.GetInstance().countdown)
+            {
+                BattleManager.GetInstance().EndRoundCheck();
+            }
+        }
     }
 
     /*
@@ -309,13 +331,13 @@ public class PlayerController : MonoBehaviour
         currentState = PlayerState.Idle;
     }
 
-    public void TakeDamage(float damageAmount)
-    {
-        healthPoints -= damageAmount;
+    //public void TakeDamage(float damageAmount)
+    //{
+    //    healthPoints -= damageAmount;
 
-        if (healthPoints <= 0)
-            currentState = PlayerState.Lose;
-    }
+    //    if (healthPoints <= 0)
+    //        currentState = PlayerState.Lose;
+    //}
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
