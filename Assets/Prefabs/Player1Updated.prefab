@@ -575,10 +575,11 @@ MonoBehaviour:
   startPosition: {x: 0, y: 0}
   currentState: 0
   healthPoints: 10000
+  healthSlider: {fileID: 0}
+  lookRight: 1
   playerSpeed: 5
-  opponentPlayer: {fileID: 0}
-  Player1pos: {fileID: 9116536063814007146}
-  Player2pos: {fileID: 0}
+  damageAmount: 20
+  opponentPlayer: {fileID: 6167488793552779154, guid: 8b35b1e5daf76894b9b0eee433ef5b99, type: 3}
   HitA: {fileID: 6249643006271735274}
   HurtA: {fileID: 7687523644059358819}
   HitB: {fileID: 2376745845236483601}
