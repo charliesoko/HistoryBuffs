@@ -766,9 +766,9 @@ MonoBehaviour:
   playerID: 0
   startPosition: {x: 0, y: 0}
   currentState: 0
-  healthPoints: 100
+  healthPoints: 10000
   playerSpeed: 5
-  opponentPlayer: Player1
+  opponentPlayer: {fileID: 554519963}
   Player1pos: {fileID: 1117974722}
   Player2pos: {fileID: 253694695}
   HitA: {fileID: 1823565735}
@@ -808,6 +808,8 @@ MonoBehaviour:
   throwSprite: {fileID: 21300000, guid: 72ed03fc7bded9ec4ac719b5f59e32d6, type: 3}
   blockSprite: {fileID: 21300000, guid: 07dbdb71b576e413ca36fa9a17a768f5, type: 3}
   hitRecieved: {fileID: 21300000, guid: ad78f42d71887118086bde670cc134b0, type: 3}
+  lossSprite: {fileID: 21300000, guid: cca1a25ad85cc17e18a6e753dabc7495, type: 3}
+  winSprite: {fileID: 21300000, guid: 72ed03fc7bded9ec4ac719b5f59e32d6, type: 3}
 --- !u!114 &253694697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1549,6 +1551,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &554519963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4735541493257412200, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+  m_PrefabInstance: {fileID: 2238754791134852962}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &721970464
 GameObject:
   m_ObjectHideFlags: 0
@@ -2707,6 +2714,10 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: winSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2ed3466ff6ba052b2aab682a4f8bde84, type: 3}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
       propertyPath: Player1pos
       value: 
       objectReference: {fileID: 1117974722}
@@ -2714,6 +2725,10 @@ PrefabInstance:
       propertyPath: Player2pos
       value: 
       objectReference: {fileID: 253694695}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: lossSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 15cadf1ca2cb1cb38898f565c924057f, type: 3}
     - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
       propertyPath: pushBack.x
       value: -400
@@ -2731,6 +2746,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 2ed3466ff6ba052b2aab682a4f8bde84, type: 3}
     - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+      propertyPath: healthPoints
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
       propertyPath: attackBSprite
       value: 
       objectReference: {fileID: 21300000, guid: 62711bf9c6cdd88a5b63f4f30b3004a1, type: 3}
@@ -2740,8 +2759,8 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: dde52049aa6e41870b19416e4fb4537d, type: 3}
     - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
       propertyPath: opponentPlayer
-      value: Player2
-      objectReference: {fileID: 0}
+      value: 
+      objectReference: {fileID: 253694694}
     - target: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
       propertyPath: delayAHitBActivate
       value: 0.1
@@ -2915,7 +2934,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
   m_PrefabInstance: {fileID: 2238754791134852962}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 554519963}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9df810f48b228c44b4850bc5c330216, type: 3}
