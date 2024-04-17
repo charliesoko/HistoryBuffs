@@ -95,7 +95,7 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < charManager.players.Count; i++)
         {
             //Initialize player health and spawn location each round; adjust later on to use health value that can be adjusted in inspector rather than hard-coded
-            charManager.players[i].playerStates.healthPoints = 100;
+            charManager.players[i].playerStates.healthPoints = 10000;
             //initialize animation
             charManager.players[i].playerStates.transform.position = spawnPositions[i].position;
         }
@@ -245,7 +245,7 @@ public class BattleManager : MonoBehaviour
 
         if (winPlayer != null)
         {
-            if (winPlayer.playerStates.healthPoints == 100)
+            if (winPlayer.playerStates.healthPoints == 10000)
             {
                 battleUI.announcerTextLine2.gameObject.SetActive(true);
                 battleUI.announcerTextLine2.text = "Flawless Victory!";
