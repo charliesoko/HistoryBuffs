@@ -249,11 +249,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        playerSprite.flipX = lookRight;
+        if (playerID != 1)
+            playerSprite.flipX = true;
 
         if (healthSlider != null)
         {
-            healthSlider.value = healthPoints * 0.01f;
+            healthSlider.value = healthPoints; //* 0.01f
         }
 
         if (healthPoints < 0)

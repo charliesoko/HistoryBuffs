@@ -50,21 +50,21 @@ MonoBehaviour:
     inputID: 
     playerType: 0
     hasCharacter: 0
-    playerPrefab: {fileID: 4735541493257412200, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
-    playerStates: {fileID: 9062504622571580811, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+    playerPrefab: {fileID: 4735541493257412200, guid: 042c10fb53295874cb7cd5444c7a564f, type: 3}
+    playerStates: {fileID: 9062504622571580811, guid: 042c10fb53295874cb7cd5444c7a564f, type: 3}
     score: 0
   - playerID: Player 2
     inputID: 1
     playerType: 0
     hasCharacter: 0
-    playerPrefab: {fileID: 4735541493257412200, guid: 2e4766028015cc241ab35638bcd1c262, type: 3}
-    playerStates: {fileID: 9062504622571580811, guid: 2e4766028015cc241ab35638bcd1c262, type: 3}
+    playerPrefab: {fileID: 6167488793552779154, guid: 8b35b1e5daf76894b9b0eee433ef5b99, type: 3}
+    playerStates: {fileID: 7777480015607323884, guid: 8b35b1e5daf76894b9b0eee433ef5b99, type: 3}
     score: 0
   characterList:
   - charID: character1
-    prefab: {fileID: 4735541493257412200, guid: 184f86695bf1639459c6bac9ce49a99f, type: 3}
+    prefab: {fileID: 4735541493257412200, guid: 042c10fb53295874cb7cd5444c7a564f, type: 3}
   - charID: character2
-    prefab: {fileID: 4735541493257412200, guid: 2e4766028015cc241ab35638bcd1c262, type: 3}
+    prefab: {fileID: 6167488793552779154, guid: 8b35b1e5daf76894b9b0eee433ef5b99, type: 3}
   - charID: character3
     prefab: {fileID: 0}
   - charID: character4

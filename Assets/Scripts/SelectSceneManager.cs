@@ -155,10 +155,12 @@ public class SelectSceneManager : MonoBehaviour
 
         p1.previewIcon = p1.activeIcon;
 
-        if(!string.Equals(p1.playerBase.playerID, charManager.players[0].playerID))
+        /*
+        if (!string.Equals(p1.playerBase.playerID, charManager.players[0].playerID))
         {
             p1.createdChar.GetComponent<PlayerController>().lookRight = true;
         }
+        */
     }
 
     void HandleSelectInput(PlayerInterfaces p1, string playerID)
