@@ -159,10 +159,6 @@ MonoBehaviour:
     m_ActionId: f259b18b-698a-450a-8f85-5040c537e1e7
     m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b7f5eb98-573a-4387-b0ec-fe164fe5d3a2
-    m_ActionName: Player2/Movement[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4122067622503199102}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
@@ -212,16 +208,36 @@ MonoBehaviour:
     m_ActionName: Player1/Throw[/Keyboard/t]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: f1a66988-7d42-457c-ac21-b370fa22f3d7
-    m_ActionName: Player2/Attack[/Keyboard/comma]
+    m_ActionId: c2c07fd6-6884-48df-bcac-ac1015846656
+    m_ActionName: Player1/AttackB[/DualSenseGamepadHID/buttonNorth]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 12a1449f-5932-4daa-9a21-07359f223fa6
-    m_ActionName: Player2/Block[/Keyboard/period]
+    m_ActionId: 5b0b9ac7-776f-4360-91ff-51f759990663
+    m_ActionName: Player1/AttackC[/DualSenseGamepadHID/buttonEast]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 2b60aa8a-51a8-49ad-9ca2-41b901e9f7c9
-    m_ActionName: Player2/Throw[/Keyboard/slash]
+    m_ActionId: de1e3bb0-6b1b-4447-8d31-53e862bf69d2
+    m_ActionName: Player2/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/DualSenseGamepadHID/leftStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 86ade6c0-1add-45b8-847e-6c331886ae73
+    m_ActionName: Player2/Attack[/Keyboard/f,/DualSenseGamepadHID/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f4e991a3-dba0-4759-a16b-12554e47f9e5
+    m_ActionName: Player2/AttackB
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8379f263-91c3-46e0-84a4-ff22103fa50a
+    m_ActionName: Player2/AttackC
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 535c37b5-bf7a-40b7-bba1-96037e262ddf
+    m_ActionName: Player2/Throw[/Keyboard/t,/DualSenseGamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3fa44926-cb9c-437d-8ec0-ba4207fa714e
+    m_ActionName: Player2/Block[/Keyboard/r,/DualSenseGamepadHID/buttonNorth]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player1
@@ -239,12 +255,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9df810f48b228c44b4850bc5c330216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 1
+  playerID: 0
   startPosition: {x: 0, y: 0}
   currentState: 0
   healthPoints: 100
+  healthSlider: {fileID: 0}
+  lookRight: 1
   playerSpeed: 5
+  damageAmount: 20
+  opponentPlayer: {fileID: 0}
+  HitA: {fileID: 0}
+  HurtA: {fileID: 0}
+  HitB: {fileID: 0}
+  HurtB: {fileID: 0}
+  HitC: {fileID: 0}
+  HurtC: {fileID: 0}
+  HitD: {fileID: 0}
+  HurtD: {fileID: 0}
+  pushBack: {x: 0, y: 0}
+  opponentPushBack: {x: 0, y: 0}
+  delayAHitBActivate: 0
+  delayAHurtBActivate: 0
+  delayAHitBDeactivate: 0
+  delayAHurtBDeactivate: 0
+  delayBHitBActivate: 0
+  delayBHurtBActivate: 0
+  delayBHitBDeactivate: 0
+  delayBHurtBDeactivate: 0
+  delayCHitBActivate: 0
+  delayCHurtBActivate: 0
+  delayCHitBDeactivate: 0
+  delayCHurtBDeactivate: 0
+  delayDHitBActivate: 0
+  delayDHurtBActivate: 0
+  delayDHitBDeactivate: 0
+  delayDHurtBDeactivate: 0
+  hitStunA: 0
+  hitStunB: 0
+  hitStunC: 0
+  hitStunD: 0
   attackSprite: {fileID: 21300000, guid: 62711bf9c6cdd88a5b63f4f30b3004a1, type: 3}
+  attackBSprite: {fileID: 0}
+  attackCSprite: {fileID: 0}
   idleSprite: {fileID: 21300000, guid: 46c92c8d7daab4a98afbc4654c0695b5, type: 3}
   throwSprite: {fileID: 21300000, guid: 97317415d4e89be8bb5106cc8ed8771b, type: 3}
   blockSprite: {fileID: 21300000, guid: 776f4b7944bee605e9ba8e36768b723f, type: 3}
+  hitRecieved: {fileID: 0}
+  lossSprite: {fileID: 0}
+  winSprite: {fileID: 0}

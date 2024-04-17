@@ -340,29 +340,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9df810f48b228c44b4850bc5c330216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 1
+  playerID: 0
   startPosition: {x: 0, y: 0}
   currentState: 0
-  healthPoints: 100
+  healthPoints: 10000
   healthSlider: {fileID: 0}
   lookRight: 1
   playerSpeed: 5
   damageAmount: 20
-  opponentPlayer: Player2
-  HitA: {fileID: 8401147556249934437}
-  HurtA: {fileID: 7502039039246792100}
-  HitB: {fileID: 8706919241427557896}
-  HurtB: {fileID: 8366012429755592489}
-  HitC: {fileID: 8506054404337287606}
-  HurtC: {fileID: 8532211313095482524}
-  HitD: {fileID: 5504400049476090677}
-  HurtD: {fileID: 3940258472086402002}
-  pushBack: {x: -400, y: 0}
-  opponentPushBack: {x: 50, y: 0}
-  attackSprite: {fileID: 21300000, guid: 62711bf9c6cdd88a5b63f4f30b3004a1, type: 3}
-  idleSprite: {fileID: 21300000, guid: 46c92c8d7daab4a98afbc4654c0695b5, type: 3}
-  throwSprite: {fileID: 21300000, guid: 97317415d4e89be8bb5106cc8ed8771b, type: 3}
-  blockSprite: {fileID: 21300000, guid: 776f4b7944bee605e9ba8e36768b723f, type: 3}
+  opponentPlayer: {fileID: 0}
+  HitA: {fileID: 8437612818598347968, guid: 8b35b1e5daf76894b9b0eee433ef5b99, type: 3}
+  HurtA: {fileID: 5958728364674642950, guid: 8b35b1e5daf76894b9b0eee433ef5b99, type: 3}
+  HitB: {fileID: 8746017576148477608, guid: 8b35b1e5daf76894b9b0eee433ef5b99, type: 3}
+  HurtB: {fileID: 8465972229042460463, guid: 8b35b1e5daf76894b9b0eee433ef5b99, type: 3}
+  HitC: {fileID: 6354622545040950924, guid: 8b35b1e5daf76894b9b0eee433ef5b99, type: 3}
+  HurtC: {fileID: 4937392589308838541, guid: 8b35b1e5daf76894b9b0eee433ef5b99, type: 3}
+  HitD: {fileID: 8927270455333448941, guid: 8b35b1e5daf76894b9b0eee433ef5b99, type: 3}
+  HurtD: {fileID: 3339894372000198070, guid: 8b35b1e5daf76894b9b0eee433ef5b99, type: 3}
+  pushBack: {x: 400, y: 0}
+  opponentPushBack: {x: -25, y: 0}
+  delayAHitBActivate: 0.1
+  delayAHurtBActivate: 0
+  delayAHitBDeactivate: 0.1
+  delayAHurtBDeactivate: 0.1
+  delayBHitBActivate: 0.2
+  delayBHurtBActivate: 0
+  delayBHitBDeactivate: 0.15
+  delayBHurtBDeactivate: 0.1
+  delayCHitBActivate: 0.3
+  delayCHurtBActivate: 0
+  delayCHitBDeactivate: 0.15
+  delayCHurtBDeactivate: 0.15
+  delayDHitBActivate: 0.1
+  delayDHurtBActivate: 0
+  delayDHitBDeactivate: 0.1
+  delayDHurtBDeactivate: 0
+  hitStunA: 0.1
+  hitStunB: 0.2
+  hitStunC: 0.4
+  hitStunD: 1.5
+  attackSprite: {fileID: 21300000, guid: 54b5104d4b2389ef0835ea8c12635c85, type: 3}
+  attackBSprite: {fileID: 21300000, guid: 18fa790f0f60b99d1999159135286928, type: 3}
+  attackCSprite: {fileID: 21300000, guid: f0590c681fa12f9bc9e68730c242d727, type: 3}
+  idleSprite: {fileID: 21300000, guid: 52b3c95a1b846f89996b6b3837f10009, type: 3}
+  throwSprite: {fileID: 21300000, guid: 72ed03fc7bded9ec4ac719b5f59e32d6, type: 3}
+  blockSprite: {fileID: 21300000, guid: 07dbdb71b576e413ca36fa9a17a768f5, type: 3}
+  hitRecieved: {fileID: 21300000, guid: ad78f42d71887118086bde670cc134b0, type: 3}
+  lossSprite: {fileID: 21300000, guid: cca1a25ad85cc17e18a6e753dabc7495, type: 3}
+  winSprite: {fileID: 21300000, guid: 72ed03fc7bded9ec4ac719b5f59e32d6, type: 3}
 --- !u!50 &2665127565171565787
 Rigidbody2D:
   serializedVersion: 4

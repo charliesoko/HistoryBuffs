@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
         Throwing,
         SpecialMove,
         Damaged,
+        DamagedB,
+        DamagedC,
+        DamagedD,
         Stunned,
         Win,
         Lose
@@ -38,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
     public PlayerState currentState;
 
-    public float healthPoints = 100f;
+    public float healthPoints = 10000f;
     public UnityEngine.UI.Slider healthSlider;
     public bool lookRight = true;
 
@@ -53,7 +56,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer playerSprite;
     private Vector2 movementInput = Vector2.zero;
 
-    public string opponentPlayer;
+    public GameObject opponentPlayer;
 
     public GameObject HitA;
     public GameObject HurtA;
@@ -71,9 +74,40 @@ public class PlayerController : MonoBehaviour
     public Vector2 opponentPushBack;
 
     private bool isAttacking = false;
+    private bool isAttackingB = false;
+    private bool isAttackingC = false;
     private bool attackTriggered = false;
+    private bool attackTriggeredB = false;
+    private bool attackTriggeredC = false;
 
     private bool combatActionActive = false; //bool to indicate if the player is current involved in a combat action
+    private bool combatActionActiveB = false;
+    private bool combatActionActiveC = false;
+
+    public float delayAHitBActivate;
+    public float delayAHurtBActivate;
+    public float delayAHitBDeactivate;
+    public float delayAHurtBDeactivate;
+
+    public float delayBHitBActivate;
+    public float delayBHurtBActivate;
+    public float delayBHitBDeactivate;
+    public float delayBHurtBDeactivate;
+
+    public float delayCHitBActivate;
+    public float delayCHurtBActivate;
+    public float delayCHitBDeactivate;
+    public float delayCHurtBDeactivate;
+
+    public float delayDHitBActivate;
+    public float delayDHurtBActivate;
+    public float delayDHitBDeactivate;
+    public float delayDHurtBDeactivate;
+
+    public float hitStunA;
+    public float hitStunB;
+    public float hitStunC;
+    public float hitStunD;
 
     private bool isBlocking = false;
     private bool blockTriggered = false;
@@ -82,9 +116,14 @@ public class PlayerController : MonoBehaviour
     private bool throwTriggered = false;
 
     public Sprite attackSprite;
+    public Sprite attackBSprite;
+    public Sprite attackCSprite;
     public Sprite idleSprite;
     public Sprite throwSprite;
     public Sprite blockSprite;
+    public Sprite hitRecieved;
+    public Sprite lossSprite;
+    public Sprite winSprite;
 
     private void Start()
     {
@@ -119,44 +158,67 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        HurtA.SetActive(true);
-        HitA.SetActive(true);
-
-        if (context.performed && !isAttacking && !attackTriggered && !combatActionActive)
-            attackTriggered = true;
+        if (currentState != PlayerState.Damaged && currentState != PlayerState.DamagedB && currentState != PlayerState.DamagedC && currentState != PlayerState.DamagedD)
+        {
+            if (context.performed && !isAttacking && !attackTriggered && !combatActionActive)
+                attackTriggered = true;
+        }
 
     }
     public void OnAttackB(InputAction.CallbackContext context)
     {
-        HurtB.SetActive(true);
-        HitB.SetActive(true);
-
-        if (context.performed && !isAttacking && !attackTriggered && !combatActionActive)
-            attackTriggered = true;
+        if (currentState != PlayerState.Damaged && currentState != PlayerState.DamagedB && currentState != PlayerState.DamagedC && currentState != PlayerState.DamagedD)
+        {
+            if (context.performed && !isAttackingB && !attackTriggeredB && !combatActionActiveB)
+                attackTriggeredB = true;
+        }
 
     }
     public void OnAttackC(InputAction.CallbackContext context)
     {
-        HurtC.SetActive(true);
-        HitC.SetActive(true);
-
-        if (context.performed && !isAttacking && !attackTriggered && !combatActionActive)
-            attackTriggered = true;
+        if (currentState != PlayerState.Damaged && currentState != PlayerState.DamagedB && currentState != PlayerState.DamagedC && currentState != PlayerState.DamagedD)
+        {
+            if (context.performed && !isAttackingC && !attackTriggeredC && !combatActionActiveC)
+                attackTriggeredC = true;
+        }
 
     }
     public void OnBlock(InputAction.CallbackContext context)
     {
-        if (context.performed && !isBlocking && !blockTriggered && !combatActionActive)
-            blockTriggered = true;
+        if (currentState != PlayerState.Damaged && currentState != PlayerState.DamagedB && currentState != PlayerState.DamagedC && currentState != PlayerState.DamagedD)
+        {
+            if (context.performed && !isBlocking && !blockTriggered && !combatActionActive)
+                blockTriggered = true;
+
+
+            if (context.canceled)
+            {
+                Debug.Log("Block has ended.");
+
+                isBlocking = false;
+                blockTriggered = false;
+                combatActionActive = false;
+                currentState = PlayerState.Idle;
+            }
+        }
+
+        HurtA.SetActive(false);
+        HitA.SetActive(false);
+        HurtB.SetActive(false);
+        HitB.SetActive(false);
+        HurtC.SetActive(false);
+        HitC.SetActive(false);
+        HurtD.SetActive(false);
+        HitD.SetActive(false);
     }
 
     public void OnThrow(InputAction.CallbackContext context)
     {
-        HitD.SetActive(true);
-        HurtD.SetActive(true);
-
-        if (context.performed && !isThrowing && !throwTriggered && !combatActionActive)
-            throwTriggered = true;
+        if (currentState != PlayerState.Damaged && currentState != PlayerState.DamagedB && currentState != PlayerState.DamagedC && currentState != PlayerState.DamagedD)
+        {
+            if (context.performed && !isThrowing && !throwTriggered && !combatActionActive)
+                throwTriggered = true;
+        }
     }
 
     private void Update()
@@ -169,6 +231,20 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene("SampleScene");
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("CharacterMenu");
+        }
+
+        if (healthPoints <= 0)
+        {
+            currentState = PlayerState.Lose;
+        }
+
+        if (opponentPlayer.GetComponent<PlayerController>().currentState == PlayerState.Lose)
+        {
+            currentState = PlayerState.Win;
+        }
     }
 
     private void FixedUpdate()
@@ -200,13 +276,33 @@ public class PlayerController : MonoBehaviour
                 if (moveInput.x != 0)
                 {
                     currentState = PlayerState.Walking;
+
+                    HurtA.SetActive(false);
+                    HitA.SetActive(false);
+                    HurtB.SetActive(false);
+                    HitB.SetActive(false);
+                    HurtC.SetActive(false);
+                    HitC.SetActive(false);
+                    HurtD.SetActive(false);
+                    HitD.SetActive(false);
+
                 }
                 else if (attackTriggered && !isAttacking)
                 {
                     currentState = PlayerState.Attacking;
-                    StartCoroutine(EndAttack());
+                    StartCoroutine(AttackA());
                 }
-                
+                else if (attackTriggeredB && !isAttackingB)
+                {
+                    currentState = PlayerState.Attacking;
+                    StartCoroutine(AttackB());
+                }
+                else if (attackTriggeredC && !isAttackingC)
+                {
+                    currentState = PlayerState.Attacking;
+                    StartCoroutine(AttackC());
+                }
+
                 else if (blockTriggered && !isBlocking)
                 {
                     currentState = PlayerState.Blocking;
@@ -228,10 +324,44 @@ public class PlayerController : MonoBehaviour
                 if (movementInput.x == 0)
                 {
                     currentState = PlayerState.Idle;
+
+                    HurtA.SetActive(false);
+                    HitA.SetActive(false);
+                    HurtB.SetActive(false);
+                    HitB.SetActive(false);
+                    HurtC.SetActive(false);
+                    HitC.SetActive(false);
+                    HurtD.SetActive(false);
+                    HitD.SetActive(false);
+
                 }
                 break;
 
+            case PlayerState.Damaged:
+                StartCoroutine(HitStunA());
+                break;
+
+            case PlayerState.DamagedB:
+                StartCoroutine(HitStunB());
+                break;
+
+            case PlayerState.DamagedC:
+                StartCoroutine(HitStunC());
+                break;
+
+            case PlayerState.DamagedD:
+                StartCoroutine(HitStunD());
+                break;
+
             case PlayerState.Attacking:
+                break;
+
+            case PlayerState.Lose:
+                playerSprite.sprite = lossSprite;
+                break;
+
+            case PlayerState.Win:
+                playerSprite.sprite = winSprite;
                 break;
         }
     }
@@ -250,22 +380,36 @@ public class PlayerController : MonoBehaviour
                 ////Debug.Log(movementInput);
                 //controller.Move(move * Time.deltaTime * playerSpeed);
                 gameObject.transform.position = (currentPos + (move * Time.deltaTime * playerSpeed));
+                playerSprite.sprite = idleSprite;
                 ////Debug.Log("Player is walking.");
                 break;
             case PlayerState.Attacking:
                 ////Debug.Log("Player is attacking.");
                 break;
             case PlayerState.Blocking:
-                Debug.Log("Player is blocking.");
+                ////Debug.Log("Player is blocking.");
                 break;
             case PlayerState.Throwing:
-                Debug.Log("Player is throwing.");
+                ////Debug.Log("Player is throwing.");
                 break;
             case PlayerState.SpecialMove:
                 Debug.Log("Player is using a special move.");
                 break;
             case PlayerState.Damaged:
-                Debug.Log("Player is damaged.");
+                playerSprite.sprite = hitRecieved;
+                ////Debug.Log("Player is damaged.");
+                break;
+            case PlayerState.DamagedB:
+                playerSprite.sprite = hitRecieved;
+                ////Debug.Log("Player is damaged.");
+                break;
+            case PlayerState.DamagedC:
+                playerSprite.sprite = hitRecieved;
+                ////Debug.Log("Player is damaged.");
+                break;
+            case PlayerState.DamagedD:
+                playerSprite.sprite = hitRecieved;
+                ////Debug.Log("Player is damaged.");
                 break;
             case PlayerState.Lose:
                 Debug.Log("Player lost.");
@@ -277,19 +421,31 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private IEnumerator EndAttack()
+    private IEnumerator AttackA()
     {
         combatActionActive = true;
         isAttacking = true;
-        playerSprite.sprite = attackSprite;
-        yield return new WaitForSeconds(0.25f);
 
-        HurtA.SetActive(false);
-        HitA.SetActive(false);
-        HurtB.SetActive(false);
+
+        yield return new WaitForSeconds(delayAHurtBActivate);
+        HurtA.SetActive(true);
+
+
+        yield return new WaitForSeconds(delayAHitBActivate);
+        HitA.SetActive(true);
+        playerSprite.sprite = attackSprite;
+
+
+        yield return new WaitForSeconds(delayAHitBDeactivate);
         HitB.SetActive(false);
-        HurtC.SetActive(false);
+        HitA.SetActive(false);
         HitC.SetActive(false);
+
+
+        yield return new WaitForSeconds(delayAHurtBDeactivate);
+        HurtB.SetActive(false);
+        HurtC.SetActive(false);
+        HurtA.SetActive(false);
 
         ////Debug.Log("Attack has ended.");
 
@@ -299,28 +455,90 @@ public class PlayerController : MonoBehaviour
         currentState = PlayerState.Idle;
     }
 
+    private IEnumerator AttackB()
+    {
+        combatActionActiveB = true;
+        isAttackingB = true;
+
+        yield return new WaitForSeconds(delayBHurtBActivate);
+        HurtB.SetActive(true);
+
+        yield return new WaitForSeconds(delayBHitBActivate);
+        playerSprite.sprite = attackBSprite;
+        HitB.SetActive(true);
+
+        yield return new WaitForSeconds(delayBHitBDeactivate);
+        HitB.SetActive(false);
+        HitA.SetActive(false);
+        HitC.SetActive(false);
+
+        yield return new WaitForSeconds(delayBHurtBDeactivate);
+        HurtB.SetActive(false);
+        HurtC.SetActive(false);
+        HurtA.SetActive(false);
+
+        ////Debug.Log("Attack has ended.");
+
+        isAttackingB = false;
+        attackTriggeredB = false;
+        combatActionActiveB = false;
+        currentState = PlayerState.Idle;
+    }
+
+    private IEnumerator AttackC()
+    {
+        combatActionActiveC = true;
+        isAttackingC = true;
+
+        yield return new WaitForSeconds(delayCHurtBActivate);
+        HurtC.SetActive(true);
+
+        yield return new WaitForSeconds(delayCHitBActivate);
+        playerSprite.sprite = attackCSprite;
+        HitC.SetActive(true);
+
+        yield return new WaitForSeconds(delayCHitBDeactivate);
+        HitB.SetActive(false);
+        HitA.SetActive(false);
+        HitC.SetActive(false);
+
+        yield return new WaitForSeconds(delayCHurtBDeactivate);
+        HurtB.SetActive(false);
+        HurtC.SetActive(false);
+        HurtA.SetActive(false);
+
+        ////Debug.Log("Attack has ended.");
+
+        isAttackingC = false;
+        attackTriggeredC = false;
+        combatActionActiveC = false;
+        currentState = PlayerState.Idle;
+    }
+
     private IEnumerator EndBlock()
     {
         combatActionActive = true;
         isBlocking = true;
         playerSprite.sprite = blockSprite;
-        yield return new WaitForSeconds(1.0f);
-        Debug.Log("Block has ended.");
-
-        isBlocking = false;
-        blockTriggered = false;
-        combatActionActive = false;
-        currentState = PlayerState.Idle;
+        yield return new WaitForSeconds(0f);
     }
 
     private IEnumerator EndThrow()
     {
         combatActionActive = true;
         isThrowing = true;
-        playerSprite.sprite = throwSprite;
-        yield return new WaitForSeconds(0.5f);
 
+        yield return new WaitForSeconds(delayDHurtBActivate);
+        HurtD.SetActive(true);
+
+        yield return new WaitForSeconds(delayDHitBActivate);
+        HitD.SetActive(true);
+        playerSprite.sprite = throwSprite;
+
+        yield return new WaitForSeconds(delayDHitBDeactivate);
         HitD.SetActive(false);
+
+        yield return new WaitForSeconds(delayDHurtBDeactivate);
         HurtD.SetActive(false);
 
         Debug.Log("Throw has ended.");
@@ -328,6 +546,44 @@ public class PlayerController : MonoBehaviour
         isThrowing = false;
         throwTriggered = false;
         combatActionActive = false;
+        currentState = PlayerState.Idle;
+    }
+
+    private IEnumerator HitStunA()
+    {
+
+        playerSprite.sprite = hitRecieved;
+
+        yield return new WaitForSeconds(hitStunA);
+
+        currentState = PlayerState.Idle;
+    }
+
+    private IEnumerator HitStunB()
+    {
+
+        playerSprite.sprite = hitRecieved;
+
+        yield return new WaitForSeconds(hitStunB);
+
+        currentState = PlayerState.Idle;
+    }
+
+    private IEnumerator HitStunC()
+    {
+        playerSprite.sprite = hitRecieved;
+
+        yield return new WaitForSeconds(hitStunC);
+
+        currentState = PlayerState.Idle;
+    }
+
+    private IEnumerator HitStunD()
+    {
+        playerSprite.sprite = hitRecieved;
+
+        yield return new WaitForSeconds(hitStunD);
+
         currentState = PlayerState.Idle;
     }
 
@@ -351,6 +607,8 @@ public class PlayerController : MonoBehaviour
                 {
                     rigidbody.AddForce(pushBack * 0);
                     collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 300));
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedD;
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints = -1000;
                 }
                 else
                 {
@@ -362,11 +620,90 @@ public class PlayerController : MonoBehaviour
             {
                 rigidbody.AddForce(pushBack * 0);
                 collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 300));
+                collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedD;
+                collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
             }
             else
             {
                 rigidbody.AddForce(pushBack * 0);
                 collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack * 4);
+
+
+                if (HitA.activeSelf)
+                {
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 400;
+
+                    //if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedB)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
+                    //    StopCoroutine(HitStunB());
+                    //}
+                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedC)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
+                    //    StopCoroutine(HitStunC());
+                    //}
+                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedD)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
+                    //    StopCoroutine(HitStunD());
+                    //}
+                    //else
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
+                    //}
+                }
+                else if (HitB.activeSelf)
+                {
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
+
+                    //if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.Damaged)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
+                    //    StopCoroutine(HitStunA());
+                    //}
+                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedC)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
+                    //    StopCoroutine(HitStunC());
+                    //}
+                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedD)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
+                    //    StopCoroutine(HitStunD());
+                    //}
+                    //else
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
+                    //}
+                }
+                else if (HitC.activeSelf)
+                {
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1800;
+
+                    //if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.Damaged)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
+                    //    StopCoroutine(HitStunA());
+                    //}
+                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedB)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
+                    //    StopCoroutine(HitStunB());
+                    //}
+                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedD)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
+                    //    StopCoroutine(HitStunD());
+                    //}
+                    //else
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
+                    //}
+                }
             }
 
             Debug.Log("The move has Hit!");
@@ -382,6 +719,8 @@ public class PlayerController : MonoBehaviour
                 {
                     rigidbody.AddForce(pushBack * 0);
                     collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 300));
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedD;
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
                 }
                 else
                 {
@@ -393,11 +732,90 @@ public class PlayerController : MonoBehaviour
             {
                 rigidbody.AddForce(pushBack * 0);
                 collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 300));
+                collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedD;
+                collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
             }
             else
             {
                 rigidbody.AddForce(pushBack * 0);
                 collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack * 4);
+
+
+                if (HitA.activeSelf)
+                {
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 400;
+
+                    //if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedB)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
+                    //    StopCoroutine(HitStunB());
+                    //}
+                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedC)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
+                    //    StopCoroutine(HitStunC());
+                    //}
+                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedD)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
+                    //    StopCoroutine(HitStunD());
+                    //}
+                    //else
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
+                    //}
+                }
+                else if (HitB.activeSelf)
+                {
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
+
+                    //if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.Damaged)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
+                    //    StopCoroutine(HitStunA());
+                    //}
+                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedC)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
+                    //    StopCoroutine(HitStunC());
+                    //}
+                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedD)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
+                    //    StopCoroutine(HitStunD());
+                    //}
+                    //else
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
+                    //}
+                }
+                else if (HitC.activeSelf)
+                {
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1800;
+
+                    //if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.Damaged)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
+                    //    StopCoroutine(HitStunA());
+                    //}
+                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedB)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
+                    //    StopCoroutine(HitStunB());
+                    //}
+                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedD)
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
+                    //    StopCoroutine(HitStunD());
+                    //}
+                    //else
+                    //{
+                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
+                    //}
+                }
             }
 
             Debug.Log("The move has Hit!");
