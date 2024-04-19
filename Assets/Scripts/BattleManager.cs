@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 public class BattleManager : MonoBehaviour
@@ -20,6 +21,9 @@ public class BattleManager : MonoBehaviour
     public int maxRoundTimer;
     int currentTimer;
     float internalTimer;
+
+    public Sprite[] stageBackgrounds;
+    public Image currentBackground;
 
     private void Start()
     {
@@ -48,6 +52,11 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator StartGame()
     {
+        //Randomly select a stage background
+        int randInt = Random.Range(0, 4);
+        int stageNumber = randInt;
+        currentBackground.sprite = stageBackgrounds[stageNumber];
+
         //Create the player characters
         yield return CreatePlayers();
 
@@ -111,7 +120,7 @@ public class BattleManager : MonoBehaviour
         text1.gameObject.SetActive(true);
         text1.fontSize = 60;
         text1.text = ("Round " + currentRound);
-        text1.color = Color.white;
+        text1.color = Color.red;
         yield return oneSec;
         yield return oneSec;
 
@@ -135,10 +144,10 @@ public class BattleManager : MonoBehaviour
 
         text1.color = Color.red;
         //text1.fontSize = text1.fontSize + 10;
-        text1.text = ("READY!");
+        text1.text = ("READY...");
         yield return oneSec;
         yield return oneSec;
-        yield return oneSec;
+        //yield return oneSec;
 
         text1.color = Color.red;
         //text1.fontSize = text1.fontSize + 10;
@@ -190,7 +199,7 @@ public class BattleManager : MonoBehaviour
         countdown = false;
 
         battleUI.battleTimer.text = maxRoundTimer.ToString();
-        battleUI.battleTimer.color = Color.white;
+        battleUI.battleTimer.color = Color.red;
 
         //If the round ends on a time out, display the appropriate message
         if (timeOut)
@@ -223,7 +232,7 @@ public class BattleManager : MonoBehaviour
         yield return oneSec;
 
         PlayerBase winPlayer = FindWinningPlayer();
-
+        
         if (winPlayer == null)
         {
             battleUI.announcerTextLine1.text = "Draw";
