@@ -490,9 +490,9 @@
                     "name": "",
                     "id": "d81413ca-da3f-4e8e-8034-b311e2cd3593",
                     "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "processors": "",
-                    "groups": "Gamepad",
+                    "groups": "GamePad2",
                     "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
