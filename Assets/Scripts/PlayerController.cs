@@ -609,7 +609,7 @@ public class PlayerController : MonoBehaviour
                     rigidbody.AddForce(pushBack * 0);
                     collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 300));
                     collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedD;
-                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints = -1000;
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
                 }
                 else
                 {
