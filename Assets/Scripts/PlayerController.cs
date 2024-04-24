@@ -409,7 +409,7 @@ public class PlayerController : MonoBehaviour
                 ////Debug.Log("Player is damaged.");
                 break;
             case PlayerState.DamagedD:
-                playerSprite.sprite = hitRecieved;
+                playerSprite.sprite = lossSprite;
                 ////Debug.Log("Player is damaged.");
                 break;
             case PlayerState.Lose:
@@ -557,7 +557,10 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(hitStunA);
 
-        currentState = PlayerState.Idle;
+        if (currentState == PlayerState.Damaged)
+        {
+            currentState = PlayerState.Idle;
+        }
     }
 
     private IEnumerator HitStunB()
@@ -567,7 +570,10 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(hitStunB);
 
-        currentState = PlayerState.Idle;
+        if (currentState == PlayerState.DamagedB)
+        {
+            currentState = PlayerState.Idle;
+        }
     }
 
     private IEnumerator HitStunC()
@@ -576,16 +582,22 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(hitStunC);
 
-        currentState = PlayerState.Idle;
+        if (currentState == PlayerState.DamagedC)
+        {
+            currentState = PlayerState.Idle;
+        }
     }
 
     private IEnumerator HitStunD()
     {
-        playerSprite.sprite = hitRecieved;
+        playerSprite.sprite = lossSprite;
 
         yield return new WaitForSeconds(hitStunD);
 
-        currentState = PlayerState.Idle;
+        if (currentState == PlayerState.DamagedD)
+        {
+            currentState = PlayerState.Idle;
+        }
     }
 
     //public void TakeDamage(float damageAmount)
@@ -606,8 +618,8 @@ public class PlayerController : MonoBehaviour
             {
                 if (currentState == PlayerState.Throwing)
                 {
-                    rigidbody.AddForce(pushBack * 0);
-                    collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 300));
+                    rigidbody.AddForce(pushBack * 0f);
+                    collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 200));
                     collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedD;
                     collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
                 }
@@ -619,91 +631,38 @@ public class PlayerController : MonoBehaviour
             }
             else if (currentState == PlayerState.Throwing)
             {
-                rigidbody.AddForce(pushBack * 0);
-                collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 300));
-                collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedD;
-                collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
+                if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState != PlayerState.DamagedD)
+                {
+                    rigidbody.AddForce(pushBack * 0f);
+                    collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 200));
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedD;
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
+                }
             }
             else
             {
                 rigidbody.AddForce(pushBack * 0);
                 collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack * 4);
 
-
-                if (HitA.activeSelf)
+                if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState != PlayerState.DamagedD)
                 {
-                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
-                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 400;
+                    if (HitA.activeSelf)
+                    {
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 400;
 
-                    //if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedB)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
-                    //    StopCoroutine(HitStunB());
-                    //}
-                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedC)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
-                    //    StopCoroutine(HitStunC());
-                    //}
-                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedD)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
-                    //    StopCoroutine(HitStunD());
-                    //}
-                    //else
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
-                    //}
-                }
-                else if (HitB.activeSelf)
-                {
-                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
-                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
+                    }
+                    else if (HitB.activeSelf)
+                    {
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
 
-                    //if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.Damaged)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
-                    //    StopCoroutine(HitStunA());
-                    //}
-                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedC)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
-                    //    StopCoroutine(HitStunC());
-                    //}
-                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedD)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
-                    //    StopCoroutine(HitStunD());
-                    //}
-                    //else
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
-                    //}
-                }
-                else if (HitC.activeSelf)
-                {
-                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
-                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1800;
-
-                    //if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.Damaged)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
-                    //    StopCoroutine(HitStunA());
-                    //}
-                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedB)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
-                    //    StopCoroutine(HitStunB());
-                    //}
-                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedD)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
-                    //    StopCoroutine(HitStunD());
-                    //}
-                    //else
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
-                    //}
+                    }
+                    else if (HitC.activeSelf)
+                    {
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1800;
+                    }
                 }
             }
 
@@ -718,8 +677,8 @@ public class PlayerController : MonoBehaviour
             {
                 if (currentState == PlayerState.Throwing)
                 {
-                    rigidbody.AddForce(pushBack * 0);
-                    collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 300));
+                    rigidbody.AddForce(pushBack * 0f);
+                    collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 200));
                     collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedD;
                     collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
                 }
@@ -731,10 +690,13 @@ public class PlayerController : MonoBehaviour
             }
             else if (currentState == PlayerState.Throwing)
             {
-                rigidbody.AddForce(pushBack * 0);
-                collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 300));
-                collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedD;
-                collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
+                if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState != PlayerState.DamagedD)
+                {
+                    rigidbody.AddForce(pushBack * 0f);
+                    collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 200));
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedD;
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
+                }
             }
             else
             {
@@ -742,80 +704,25 @@ public class PlayerController : MonoBehaviour
                 collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack * 4);
 
 
-                if (HitA.activeSelf)
+                if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState != PlayerState.DamagedD)
                 {
-                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
-                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 400;
+                    if (HitA.activeSelf)
+                    {
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 400;
 
-                    //if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedB)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
-                    //    StopCoroutine(HitStunB());
-                    //}
-                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedC)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
-                    //    StopCoroutine(HitStunC());
-                    //}
-                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedD)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
-                    //    StopCoroutine(HitStunD());
-                    //}
-                    //else
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
-                    //}
-                }
-                else if (HitB.activeSelf)
-                {
-                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
-                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
+                    }
+                    else if (HitB.activeSelf)
+                    {
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
 
-                    //if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.Damaged)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
-                    //    StopCoroutine(HitStunA());
-                    //}
-                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedC)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
-                    //    StopCoroutine(HitStunC());
-                    //}
-                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedD)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
-                    //    StopCoroutine(HitStunD());
-                    //}
-                    //else
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
-                    //}
-                }
-                else if (HitC.activeSelf)
-                {
-                    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
-                    collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1800;
-
-                    //if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.Damaged)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
-                    //    StopCoroutine(HitStunA());
-                    //}
-                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedB)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
-                    //    StopCoroutine(HitStunB());
-                    //}
-                    //else if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState == PlayerState.DamagedD)
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
-                    //    StopCoroutine(HitStunD());
-                    //}
-                    //else
-                    //{
-                    //    collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
-                    //}
+                    }
+                    else if (HitC.activeSelf)
+                    {
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1800;
+                    }
                 }
             }
 
