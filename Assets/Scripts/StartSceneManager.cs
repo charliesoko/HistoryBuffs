@@ -7,7 +7,20 @@ using UnityEngine.SceneManagement;
 public class StartSceneManager : MonoBehaviour
 {
     public bool loadingLevel;
+    CharacterManager charManager;
 
+    private void Start()
+    {
+        charManager = CharacterManager.GetInstance();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
+    }
     public void TriggerLevelLoad()
     {
         if (!loadingLevel)
@@ -28,7 +41,7 @@ public class StartSceneManager : MonoBehaviour
     {
         SetCharacterCount();
         yield return new WaitForSeconds(1.5f);
-        SceneManager.LoadSceneAsync("Select", LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync("Battle", LoadSceneMode.Single);
 
     }
 }

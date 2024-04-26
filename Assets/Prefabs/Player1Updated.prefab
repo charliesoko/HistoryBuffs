@@ -579,6 +579,7 @@ MonoBehaviour:
   lookRight: 1
   playerSpeed: 5
   damageAmount: 20
+  playerInput: {fileID: 5301233297065444201}
   opponentPlayer: {fileID: 6167488793552779154, guid: 8b35b1e5daf76894b9b0eee433ef5b99, type: 3}
   HitA: {fileID: 6249643006271735274}
   HurtA: {fileID: 7687523644059358819}

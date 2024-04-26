@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
@@ -31,6 +32,9 @@ public class BattleManager : MonoBehaviour
         charManager = CharacterManager.GetInstance();
         battleUI = BattleUI.GetInstance();
 
+        //Randomly select a stage background
+        currentBackground.sprite = stageBackgrounds[charManager.stageIndex];
+
         //Initialize WaitForSeconds to be used later on
         oneSec = new WaitForSeconds(1);
 
@@ -47,6 +51,11 @@ public class BattleManager : MonoBehaviour
         if (countdown)
         {
             HandleRoundTimer();
+        }
+
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
         }
     }
 
@@ -109,6 +118,8 @@ public class BattleManager : MonoBehaviour
             charManager.players[i].playerStates.transform.position = spawnPositions[i].position;
         }
 
+        DisableControls();
+
         yield return null;
     }
 
@@ -162,11 +173,19 @@ public class BattleManager : MonoBehaviour
         yield return oneSec;
         text1.gameObject.SetActive(false);
         countdown = true;
+
+        for (int i = 0; i < charManager.players.Count; i++)
+        {
+            charManager.players[i].playerStates.playerInput.enabled = true;
+        }
     }
 
     void DisableControls()
     {
-        //Insert code to disable controls
+        for (int i = 0; i < charManager.players.Count; i++)
+        {
+            charManager.players[i].playerStates.playerInput.enabled = false;
+        }
     }
 
     void HandleRoundTimer()
@@ -340,10 +359,5 @@ public class BattleManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
-        //Randomly select a stage background
-        int randInt = Random.Range(0, 4);
-        int stageNumber = randInt;
-        currentBackground.sprite = stageBackgrounds[stageNumber];
     }
 }
