@@ -613,12 +613,12 @@ MonoBehaviour:
   attackSprite: {fileID: 21300000, guid: 2ed3466ff6ba052b2aab682a4f8bde84, type: 3}
   attackBSprite: {fileID: 21300000, guid: 62711bf9c6cdd88a5b63f4f30b3004a1, type: 3}
   attackCSprite: {fileID: 21300000, guid: dde52049aa6e41870b19416e4fb4537d, type: 3}
-  idleSprite: {fileID: 21300000, guid: 46c92c8d7daab4a98afbc4654c0695b5, type: 3}
+  idleSprite: {fileID: 21300000, guid: 9c14677e7bf761a4c8b18afc6de63873, type: 3}
   throwSprite: {fileID: 21300000, guid: 97317415d4e89be8bb5106cc8ed8771b, type: 3}
-  blockSprite: {fileID: 21300000, guid: 776f4b7944bee605e9ba8e36768b723f, type: 3}
+  blockSprite: {fileID: 21300000, guid: 37fb52ab02309674ba62d441753381b0, type: 3}
   hitRecieved: {fileID: 21300000, guid: 307e3ebd9b035fde681fa47415f1b723, type: 3}
-  lossSprite: {fileID: 21300000, guid: 15cadf1ca2cb1cb38898f565c924057f, type: 3}
-  winSprite: {fileID: 21300000, guid: 2ed3466ff6ba052b2aab682a4f8bde84, type: 3}
+  lossSprite: {fileID: 21300000, guid: 3ce4c55ededc4004dbca41546a79b67e, type: 3}
+  winSprite: {fileID: 21300000, guid: aa9220da215e8fb45aa49b923bb7d5c2, type: 3}
 --- !u!50 &2665127565171565787
 Rigidbody2D:
   serializedVersion: 4
