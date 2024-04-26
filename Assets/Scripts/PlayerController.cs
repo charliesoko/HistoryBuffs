@@ -56,6 +56,8 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer playerSprite;
     private Vector2 movementInput = Vector2.zero;
 
+    public PlayerInput playerInput;
+
     public GameObject opponentPlayer;
 
     public GameObject HitA;
@@ -231,10 +233,10 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene("SampleScene");
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        /*if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene("CharacterMenu");
-        }
+        }*/
 
         if (healthPoints <= 0)
         {

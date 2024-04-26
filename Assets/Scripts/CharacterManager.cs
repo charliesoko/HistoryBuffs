@@ -9,6 +9,8 @@ public class CharacterManager : MonoBehaviour
 
     public List<CharacterBase> characterList = new List<CharacterBase>();
 
+    public int stageIndex;
+
     public CharacterBase returnCharacterWithID(string id)
     {
         CharacterBase returnValue = null;
@@ -52,6 +54,17 @@ public class CharacterManager : MonoBehaviour
     {
         instance = this;
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    private void Start()
+    {
+        int randInt = Random.Range(0, 4);
+        stageIndex = randInt;
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
 
