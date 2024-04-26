@@ -53,9 +53,9 @@ public class BattleManager : MonoBehaviour
     IEnumerator StartGame()
     {
         //Randomly select a stage background
-        int randInt = Random.Range(0, 4);
-        int stageNumber = randInt;
-        currentBackground.sprite = stageBackgrounds[stageNumber];
+        //int randInt = Random.Range(0, 4);
+        //int stageNumber = randInt;
+        //currentBackground.sprite = stageBackgrounds[stageNumber];
 
         //Create the player characters
         yield return CreatePlayers();
@@ -340,5 +340,10 @@ public class BattleManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        //Randomly select a stage background
+        int randInt = Random.Range(0, 4);
+        int stageNumber = randInt;
+        currentBackground.sprite = stageBackgrounds[stageNumber];
     }
 }

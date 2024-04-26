@@ -20,6 +20,8 @@ public class SelectSceneManager : MonoBehaviour
 
     CharacterManager charManager;
 
+
+
     #region Singleton
     public static SelectSceneManager instance;
     public static SelectSceneManager GetInstance()
