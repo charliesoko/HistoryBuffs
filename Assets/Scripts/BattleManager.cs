@@ -177,6 +177,7 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < charManager.players.Count; i++)
         {
             charManager.players[i].playerStates.playerInput.enabled = true;
+            charManager.players[i].playerStates.controlsEnabled = true;
         }
     }
 
@@ -185,6 +186,7 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < charManager.players.Count; i++)
         {
             charManager.players[i].playerStates.playerInput.enabled = false;
+            charManager.players[i].playerStates.controlsEnabled = false;
         }
     }
 
@@ -302,7 +304,7 @@ public class BattleManager : MonoBehaviour
                 charManager.players[i].hasCharacter = false;
             }
 
-            SceneManager.LoadSceneAsync("Select");
+            SceneManager.LoadSceneAsync("Start");
         }
     }
 

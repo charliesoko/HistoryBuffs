@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 movementInput = Vector2.zero;
 
     public PlayerInput playerInput;
+    public bool controlsEnabled;
 
     public GameObject opponentPlayer;
 
@@ -160,33 +161,42 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        if (!controlsEnabled)
+            return;
+
         if (currentState != PlayerState.Damaged && currentState != PlayerState.DamagedB && currentState != PlayerState.DamagedC && currentState != PlayerState.DamagedD)
         {
             if (context.performed && !isAttacking && !attackTriggered && !combatActionActive)
                 attackTriggered = true;
         }
-
     }
     public void OnAttackB(InputAction.CallbackContext context)
     {
+        if (!controlsEnabled)
+            return;
+
         if (currentState != PlayerState.Damaged && currentState != PlayerState.DamagedB && currentState != PlayerState.DamagedC && currentState != PlayerState.DamagedD)
         {
             if (context.performed && !isAttackingB && !attackTriggeredB && !combatActionActiveB)
                 attackTriggeredB = true;
         }
-
     }
     public void OnAttackC(InputAction.CallbackContext context)
     {
+        if (!controlsEnabled)
+            return;
+
         if (currentState != PlayerState.Damaged && currentState != PlayerState.DamagedB && currentState != PlayerState.DamagedC && currentState != PlayerState.DamagedD)
         {
             if (context.performed && !isAttackingC && !attackTriggeredC && !combatActionActiveC)
                 attackTriggeredC = true;
         }
-
     }
     public void OnBlock(InputAction.CallbackContext context)
     {
+        if (!controlsEnabled)
+            return;
+
         if (currentState != PlayerState.Damaged && currentState != PlayerState.DamagedB && currentState != PlayerState.DamagedC && currentState != PlayerState.DamagedD)
         {
             if (context.performed && !isBlocking && !blockTriggered && !combatActionActive)
@@ -216,6 +226,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnThrow(InputAction.CallbackContext context)
     {
+        if (!controlsEnabled)
+            return;
+
         if (currentState != PlayerState.Damaged && currentState != PlayerState.DamagedB && currentState != PlayerState.DamagedC && currentState != PlayerState.DamagedD)
         {
             if (context.performed && !isThrowing && !throwTriggered && !combatActionActive)
