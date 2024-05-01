@@ -238,7 +238,7 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene("CharacterMenu");
         }*/
 
-        if (healthPoints <= 0)
+        if (healthPoints < 1)
         {
             currentState = PlayerState.Lose;
         }
@@ -361,6 +361,12 @@ public class PlayerController : MonoBehaviour
 
             case PlayerState.Lose:
                 playerSprite.sprite = lossSprite;
+
+                if(healthPoints >= 1)
+                {
+                    currentState = PlayerState.Idle;
+                }
+
                 break;
 
             case PlayerState.Win:
@@ -643,7 +649,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                rigidbody.AddForce(pushBack * 0);
+                rigidbody.AddForce(pushBack * 0.1f);
                 collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack * 4);
 
                 if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState != PlayerState.DamagedD)
@@ -702,7 +708,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                rigidbody.AddForce(pushBack * 0);
+                rigidbody.AddForce(pushBack * 0.1f);
                 collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack * 4);
 
 
