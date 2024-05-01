@@ -8,6 +8,8 @@ public class StartSceneManager : MonoBehaviour
 {
     public bool loadingLevel;
     CharacterManager charManager;
+    public Image fadeBackground;
+    public bool doFade;
 
     private void Start()
     {
@@ -20,7 +22,33 @@ public class StartSceneManager : MonoBehaviour
         {
             Application.Quit();
         }
+
+        if (doFade)
+            StartCoroutine(FadeIn(fadeBackground));
+        else
+            fadeBackground.enabled = false;
+
+        if (fadeBackground.color.a == 0)
+        {
+            fadeBackground.enabled = false;
+        }
     }
+
+    private YieldInstruction fadeInstruction = new YieldInstruction();
+    public float fadeTime;
+    IEnumerator FadeIn(Image image)
+    {
+        float elapsedTime = 0.0f;
+        Color c = image.color;
+        while (elapsedTime < fadeTime)
+        {
+            yield return fadeInstruction;
+            elapsedTime += Time.deltaTime;
+            c.a = 1.0f - Mathf.Clamp01(elapsedTime / fadeTime);
+            image.color = c;
+        }
+    }
+
     public void TriggerLevelLoad()
     {
         if (!loadingLevel)
