@@ -128,6 +128,9 @@ public class PlayerController : MonoBehaviour
     public Sprite lossSprite;
     public Sprite winSprite;
 
+    public AudioClip[] hitSFX;
+    public AudioSource sfxSource;
+
     private void Start()
     {
         //controller = gameObject.GetComponent<CharacterController>();
@@ -136,6 +139,7 @@ public class PlayerController : MonoBehaviour
         HitboxD = HitD.GetComponent<BoxCollider2D>();
         HurtboxD = HurtD.GetComponent<BoxCollider2D>();
         playerSprite = gameObject.GetComponent<SpriteRenderer>();
+        sfxSource = gameObject.GetComponent<AudioSource>();
 
 
         /*if (playerID == 2)
@@ -646,6 +650,7 @@ public class PlayerController : MonoBehaviour
                     collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 200));
                     collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedD;
                     collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().sfxSource.PlayOneShot(hitSFX[Random.Range(0, 5)]);
                 }
                 else
                 {
@@ -661,6 +666,7 @@ public class PlayerController : MonoBehaviour
                     collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 200));
                     collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedD;
                     collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().sfxSource.PlayOneShot(hitSFX[Random.Range(0, 5)]);
                 }
             }
             else
@@ -674,18 +680,21 @@ public class PlayerController : MonoBehaviour
                     {
                         collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
                         collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 400;
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().sfxSource.PlayOneShot(hitSFX[Random.Range(0, 5)]);
 
                     }
                     else if (HitB.activeSelf)
                     {
                         collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
                         collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().sfxSource.PlayOneShot(hitSFX[Random.Range(0, 5)]);
 
                     }
                     else if (HitC.activeSelf)
                     {
                         collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
                         collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1800;
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().sfxSource.PlayOneShot(hitSFX[Random.Range(0, 5)]);
                     }
                 }
             }
@@ -705,6 +714,7 @@ public class PlayerController : MonoBehaviour
                     collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 200));
                     collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedD;
                     collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().sfxSource.PlayOneShot(hitSFX[Random.Range(0, 5)]);
                 }
                 else
                 {
@@ -720,6 +730,7 @@ public class PlayerController : MonoBehaviour
                     collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack + new Vector2(opponentPushBack.x * 4, opponentPushBack.y + 200));
                     collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedD;
                     collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
+                    collider.gameObject.transform.parent.GetComponent<PlayerController>().sfxSource.PlayOneShot(hitSFX[Random.Range(0, 5)]);
                 }
             }
             else
@@ -734,18 +745,21 @@ public class PlayerController : MonoBehaviour
                     {
                         collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.Damaged;
                         collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 400;
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().sfxSource.PlayOneShot(hitSFX[Random.Range(0, 5)]);
 
                     }
                     else if (HitB.activeSelf)
                     {
                         collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedB;
                         collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1000;
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().sfxSource.PlayOneShot(hitSFX[Random.Range(0, 5)]);
 
                     }
                     else if (HitC.activeSelf)
                     {
                         collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState = PlayerState.DamagedC;
                         collider.gameObject.transform.parent.GetComponent<PlayerController>().healthPoints -= 1800;
+                        collider.gameObject.transform.parent.GetComponent<PlayerController>().sfxSource.PlayOneShot(hitSFX[Random.Range(0, 5)]);
                     }
                 }
             }
