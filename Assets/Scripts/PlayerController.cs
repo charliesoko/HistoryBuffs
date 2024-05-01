@@ -155,6 +155,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (!controlsEnabled)
+            return;
+
         if (!combatActionActive)
             movementInput = context.ReadValue<Vector2>();
     }
