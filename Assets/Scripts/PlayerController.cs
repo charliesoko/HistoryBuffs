@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
     public int playerID;
     public Vector2 startPosition;
+    public string characterName;
 
     public PlayerState currentState;
 
@@ -262,11 +263,6 @@ public class PlayerController : MonoBehaviour
         {
             currentState = PlayerState.Lose;
         }
-
-        if (opponentPlayer.GetComponent<PlayerController>().currentState == PlayerState.Lose)
-        {
-            currentState = PlayerState.Win;
-        }
     }
 
     private void FixedUpdate()
@@ -382,10 +378,10 @@ public class PlayerController : MonoBehaviour
             case PlayerState.Lose:
                 playerSprite.sprite = lossSprite;
 
-                if(healthPoints >= 1)
+                /*if(healthPoints >= 1)
                 {
                     currentState = PlayerState.Idle;
-                }
+                }*/
 
                 break;
 
