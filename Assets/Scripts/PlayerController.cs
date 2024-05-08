@@ -408,8 +408,13 @@ public class PlayerController : MonoBehaviour
                 Vector3 move = new Vector3(movementInput.x, 0, 0);
                 ////Debug.Log(movementInput);
                 //controller.Move(move * Time.deltaTime * playerSpeed);
-                gameObject.transform.position = (currentPos + (move * Time.deltaTime * playerSpeed));
-                playerSprite.sprite = idleSprite;
+                if (controlsEnabled)
+                {
+                    gameObject.transform.position = (currentPos + (move * Time.deltaTime * playerSpeed));
+                    playerSprite.sprite = idleSprite;
+                }
+                else
+                    gameObject.transform.position = currentPos;
                 ////Debug.Log("Player is walking.");
                 break;
             case PlayerState.Attacking:

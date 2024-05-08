@@ -399,7 +399,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: 21300000, guid: 52b3c95a1b846f89996b6b3837f10009, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cc121882227cad543a411cf775227ffe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -613,15 +613,15 @@ MonoBehaviour:
   hitStunB: 0.2
   hitStunC: 0.4
   hitStunD: 1.5
-  attackSprite: {fileID: 21300000, guid: 54b5104d4b2389ef0835ea8c12635c85, type: 3}
-  attackBSprite: {fileID: 21300000, guid: 18fa790f0f60b99d1999159135286928, type: 3}
-  attackCSprite: {fileID: 21300000, guid: f0590c681fa12f9bc9e68730c242d727, type: 3}
-  idleSprite: {fileID: 21300000, guid: 52b3c95a1b846f89996b6b3837f10009, type: 3}
-  throwSprite: {fileID: 21300000, guid: 72ed03fc7bded9ec4ac719b5f59e32d6, type: 3}
-  blockSprite: {fileID: 21300000, guid: 07dbdb71b576e413ca36fa9a17a768f5, type: 3}
-  hitRecieved: {fileID: 21300000, guid: ad78f42d71887118086bde670cc134b0, type: 3}
-  lossSprite: {fileID: 21300000, guid: cca1a25ad85cc17e18a6e753dabc7495, type: 3}
-  winSprite: {fileID: 21300000, guid: 72ed03fc7bded9ec4ac719b5f59e32d6, type: 3}
+  attackSprite: {fileID: 21300000, guid: 7405ec9ff5523d949a1df2f540afc473, type: 3}
+  attackBSprite: {fileID: 21300000, guid: 76d112348d819064aa0208512d1b7c26, type: 3}
+  attackCSprite: {fileID: 21300000, guid: 2ceb66c04620095489275c61ec7c65d8, type: 3}
+  idleSprite: {fileID: 21300000, guid: cc121882227cad543a411cf775227ffe, type: 3}
+  throwSprite: {fileID: 21300000, guid: 7c7ba6f20ba623d4e96844eddfe38874, type: 3}
+  blockSprite: {fileID: 21300000, guid: e6f489951a9d87c448b7d53c0c05346f, type: 3}
+  hitRecieved: {fileID: 21300000, guid: 7405ec9ff5523d949a1df2f540afc473, type: 3}
+  lossSprite: {fileID: 21300000, guid: 16112c9664a8ca4438a9d533298ad752, type: 3}
+  winSprite: {fileID: 21300000, guid: e6f489951a9d87c448b7d53c0c05346f, type: 3}
   hitSFX:
   - {fileID: 8300000, guid: ebf91c74ddb904c429c53c666f038465, type: 3}
   - {fileID: 8300000, guid: e53b3a68f9cf14d41a397c75985beb93, type: 3}
