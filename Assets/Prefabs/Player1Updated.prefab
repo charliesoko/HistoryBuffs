@@ -595,16 +595,16 @@ MonoBehaviour:
   opponentPushBack: {x: 25, y: 0}
   delayAHitBActivate: 0.1
   delayAHurtBActivate: 0
-  delayAHitBDeactivate: 0.1
-  delayAHurtBDeactivate: 0.1
-  delayBHitBActivate: 0.2
+  delayAHitBDeactivate: 0.01
+  delayAHurtBDeactivate: 0.2
+  delayBHitBActivate: 0.1
   delayBHurtBActivate: 0
-  delayBHitBDeactivate: 0.15
-  delayBHurtBDeactivate: 0.1
-  delayCHitBActivate: 0.3
+  delayBHitBDeactivate: 0.01
+  delayBHurtBDeactivate: 0.35
+  delayCHitBActivate: 0.15
   delayCHurtBActivate: 0
-  delayCHitBDeactivate: 0.15
-  delayCHurtBDeactivate: 0.15
+  delayCHitBDeactivate: 0.01
+  delayCHurtBDeactivate: 0.45
   delayDHitBActivate: 0.2
   delayDHurtBActivate: 0
   delayDHitBDeactivate: 0.2
