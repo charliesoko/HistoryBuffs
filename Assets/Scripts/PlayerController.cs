@@ -279,7 +279,7 @@ public class PlayerController : MonoBehaviour
             healthSlider.value = healthPoints; //* 0.01f
         }
 
-        if (healthPoints < 0)
+        if (healthPoints < 1)
         {
             if (BattleManager.GetInstance().countdown)
             {
@@ -676,7 +676,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                rigidbody.AddForce(pushBack * 0.1f);
+                rigidbody.AddForce(pushBack * 0.2f);
                 collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack * 4);
 
                 if (collider.gameObject.transform.parent.GetComponent<PlayerController>().currentState != PlayerState.DamagedD)
@@ -740,7 +740,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                rigidbody.AddForce(pushBack * 0.1f);
+                rigidbody.AddForce(pushBack * 0.2f);
                 collider.gameObject.transform.parent.GetComponent<Rigidbody2D>().AddForce(opponentPushBack * 4);
 
 

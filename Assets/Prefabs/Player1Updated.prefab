@@ -595,15 +595,15 @@ MonoBehaviour:
   opponentPushBack: {x: 25, y: 0}
   delayAHitBActivate: 0.1
   delayAHurtBActivate: 0
-  delayAHitBDeactivate: 0.01
+  delayAHitBDeactivate: 0.05
   delayAHurtBDeactivate: 0.2
   delayBHitBActivate: 0.1
   delayBHurtBActivate: 0
-  delayBHitBDeactivate: 0.01
+  delayBHitBDeactivate: 0.05
   delayBHurtBDeactivate: 0.35
   delayCHitBActivate: 0.15
   delayCHurtBActivate: 0
-  delayCHitBDeactivate: 0.01
+  delayCHitBDeactivate: 0.05
   delayCHurtBDeactivate: 0.45
   delayDHitBActivate: 0.2
   delayDHurtBActivate: 0
@@ -613,9 +613,9 @@ MonoBehaviour:
   hitStunB: 0.2
   hitStunC: 0.4
   hitStunD: 1.5
-  attackSprite: {fileID: 21300000, guid: 719358d9ed969d94a89df384a6144b0a, type: 3}
+  attackSprite: {fileID: 21300000, guid: eee991f4b420ba8449f9449cb08b44ef, type: 3}
   attackBSprite: {fileID: 21300000, guid: a8165c56f24dda64895c2a45d14478de, type: 3}
-  attackCSprite: {fileID: 21300000, guid: eee991f4b420ba8449f9449cb08b44ef, type: 3}
+  attackCSprite: {fileID: 21300000, guid: 719358d9ed969d94a89df384a6144b0a, type: 3}
   idleSprite: {fileID: 21300000, guid: 9c14677e7bf761a4c8b18afc6de63873, type: 3}
   throwSprite: {fileID: 21300000, guid: eee991f4b420ba8449f9449cb08b44ef, type: 3}
   blockSprite: {fileID: 21300000, guid: 37fb52ab02309674ba62d441753381b0, type: 3}
@@ -691,8 +691,8 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.38038003, y: -0.43472028}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0.1384338, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    border: {x: 0, y: 0.15763849, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.55}
     oldSize: {x: 3.2, y: 4.8011723}
     newSize: {x: 5.12, y: 5.12}
     adaptiveTilingThreshold: 0.5
