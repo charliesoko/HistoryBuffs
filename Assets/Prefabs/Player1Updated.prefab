@@ -399,7 +399,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: 21300000, guid: 46c92c8d7daab4a98afbc4654c0695b5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9c14677e7bf761a4c8b18afc6de63873, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -613,13 +613,13 @@ MonoBehaviour:
   hitStunB: 0.2
   hitStunC: 0.4
   hitStunD: 1.5
-  attackSprite: {fileID: 21300000, guid: 2ed3466ff6ba052b2aab682a4f8bde84, type: 3}
-  attackBSprite: {fileID: 21300000, guid: 62711bf9c6cdd88a5b63f4f30b3004a1, type: 3}
-  attackCSprite: {fileID: 21300000, guid: dde52049aa6e41870b19416e4fb4537d, type: 3}
+  attackSprite: {fileID: 21300000, guid: 719358d9ed969d94a89df384a6144b0a, type: 3}
+  attackBSprite: {fileID: 21300000, guid: a8165c56f24dda64895c2a45d14478de, type: 3}
+  attackCSprite: {fileID: 21300000, guid: eee991f4b420ba8449f9449cb08b44ef, type: 3}
   idleSprite: {fileID: 21300000, guid: 9c14677e7bf761a4c8b18afc6de63873, type: 3}
-  throwSprite: {fileID: 21300000, guid: 97317415d4e89be8bb5106cc8ed8771b, type: 3}
+  throwSprite: {fileID: 21300000, guid: eee991f4b420ba8449f9449cb08b44ef, type: 3}
   blockSprite: {fileID: 21300000, guid: 37fb52ab02309674ba62d441753381b0, type: 3}
-  hitRecieved: {fileID: 21300000, guid: 307e3ebd9b035fde681fa47415f1b723, type: 3}
+  hitRecieved: {fileID: 21300000, guid: 1a9e9bb929e05e74396c5b3e63f50bf5, type: 3}
   lossSprite: {fileID: 21300000, guid: 3ce4c55ededc4004dbca41546a79b67e, type: 3}
   winSprite: {fileID: 21300000, guid: aa9220da215e8fb45aa49b923bb7d5c2, type: 3}
   hitSFX:
@@ -691,9 +691,9 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.38038003, y: -0.43472028}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0, y: 0.1384338, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.12, y: 5.12}
+    oldSize: {x: 3.2, y: 4.8011723}
     newSize: {x: 5.12, y: 5.12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
