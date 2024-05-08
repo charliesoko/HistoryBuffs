@@ -574,6 +574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 2
   startPosition: {x: 0, y: 0}
+  characterName: Einstein
   currentState: 0
   healthPoints: 10000
   healthSlider: {fileID: 0}

@@ -574,6 +574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 1
   startPosition: {x: 0, y: 0}
+  characterName: Cleopatra
   currentState: 0
   healthPoints: 10000
   healthSlider: {fileID: 0}
@@ -689,10 +690,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.38038003, y: -0.43472028}
+  m_Offset: {x: 0.38038003, y: -0.28166568}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0.15763849, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.55}
+    border: {x: 0, y: 0.1384338, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 3.2, y: 4.8011723}
     newSize: {x: 5.12, y: 5.12}
     adaptiveTilingThreshold: 0.5
@@ -700,7 +701,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.606303, y: 3.2538247}
+  m_Size: {x: 1.606303, y: 2.9477155}
   m_EdgeRadius: 0
 --- !u!82 &-1754330440768982622
 AudioSource:

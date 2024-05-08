@@ -20,7 +20,7 @@ public class StartSceneManager : MonoBehaviour
     {
         if (Input.GetKey("escape"))
         {
-            Application.Quit();
+            QuitGame();
         }
 
         if (doFade)
@@ -71,5 +71,10 @@ public class StartSceneManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadSceneAsync("Battle", LoadSceneMode.Single);
 
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

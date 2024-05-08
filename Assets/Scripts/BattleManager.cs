@@ -26,6 +26,9 @@ public class BattleManager : MonoBehaviour
     public Sprite[] stageBackgrounds;
     public Image currentBackground;
 
+    public AudioClip announcer;
+    public AudioSource announcerSource;
+
     private void Start()
     {
         //Get singleton references
@@ -112,6 +115,7 @@ public class BattleManager : MonoBehaviour
     {
         for (int i = 0; i < charManager.players.Count; i++)
         {
+            charManager.players[i].playerStates.currentState = PlayerController.PlayerState.Idle;
             //Initialize player health and spawn location each round; adjust later on to use health value that can be adjusted in inspector rather than hard-coded
             charManager.players[i].playerStates.healthPoints = 10000;
             //initialize animation
@@ -130,8 +134,8 @@ public class BattleManager : MonoBehaviour
         //Start round with announcer text, beginning with the round number and then counting down to the round start
         text1.gameObject.SetActive(true);
         text1.fontSize = 60;
-        text1.text = ("Round " + currentRound);
-        text1.color = Color.red;
+        text1.text = ("Duel " + currentRound);
+        text1.color = Color.white;
         yield return oneSec;
         yield return oneSec;
 
@@ -153,16 +157,17 @@ public class BattleManager : MonoBehaviour
         yield return oneSec;
         */
 
-        text1.color = Color.red;
+        //text1.color = Color.red;
         //text1.fontSize = text1.fontSize + 10;
-        text1.text = ("READY...");
-        yield return oneSec;
+        //text1.text = ("READY...");
+        //yield return oneSec;
         yield return oneSec;
         //yield return oneSec;
 
-        text1.color = Color.red;
+        text1.color = Color.white;
         //text1.fontSize = text1.fontSize + 10;
-        text1.text = ("FIGHT!");
+        text1.text = ("Battle Commence!");
+        announcerSource.PlayOneShot(announcer);
         yield return oneSec;
 
         /*Insert code here to enable player controls - 
@@ -220,22 +225,22 @@ public class BattleManager : MonoBehaviour
         countdown = false;
 
         battleUI.battleTimer.text = maxRoundTimer.ToString();
-        battleUI.battleTimer.color = Color.red;
+        battleUI.battleTimer.color = Color.white;
 
         //If the round ends on a time out, display the appropriate message
         if (timeOut)
         {
             battleUI.announcerTextLine1.gameObject.SetActive(true);
-            battleUI.announcerTextLine1.color = Color.red;
+            battleUI.announcerTextLine1.color = Color.white;
             battleUI.announcerTextLine1.fontSize = 90;
-            battleUI.announcerTextLine1.text = ("Time!");
+            battleUI.announcerTextLine1.text = ("Halt!");
         }
         else
         {
             battleUI.announcerTextLine1.gameObject.SetActive(true);
-            battleUI.announcerTextLine1.color = Color.red;
-            battleUI.announcerTextLine1.fontSize = 90;
-            battleUI.announcerTextLine1.text = ("K.O.");
+            battleUI.announcerTextLine1.color = Color.white;
+            battleUI.announcerTextLine1.fontSize = 80;
+            battleUI.announcerTextLine1.text = ("History has been made!");
         }
 
         //Disable player controls
@@ -256,15 +261,21 @@ public class BattleManager : MonoBehaviour
         
         if (winPlayer == null)
         {
-            battleUI.announcerTextLine1.text = "Draw";
-            battleUI.announcerTextLine1.color = Color.red;
+            battleUI.announcerTextLine1.text = "Draw!";
+            battleUI.announcerTextLine1.color = Color.white;
             battleUI.announcerTextLine1.fontSize = 90;
         }
         else
         {
-            battleUI.announcerTextLine1.text = winPlayer.playerID + " Wins!";
-            battleUI.announcerTextLine1.color = Color.red;
+            winPlayer.playerStates.currentState = PlayerController.PlayerState.Win;
+            battleUI.announcerTextLine1.text = winPlayer.playerStates.characterName;
+            battleUI.announcerTextLine1.color = Color.white;
             battleUI.announcerTextLine1.fontSize = 90;
+
+            battleUI.announcerTextLine2.gameObject.SetActive(true);
+            battleUI.announcerTextLine2.text = "Emerges Victorious!";
+            battleUI.announcerTextLine2.color = Color.white;
+            battleUI.announcerTextLine2.fontSize = 50;
         }
 
         yield return oneSec;
@@ -272,15 +283,22 @@ public class BattleManager : MonoBehaviour
         yield return oneSec;
 
         battleUI.announcerTextLine1.gameObject.SetActive(false);
+        battleUI.announcerTextLine2.gameObject.SetActive(false);
 
         if (winPlayer != null)
         {
             if (winPlayer.playerStates.healthPoints == 10000)
             {
+                battleUI.announcerTextLine1.gameObject.SetActive(true);
                 battleUI.announcerTextLine2.gameObject.SetActive(true);
-                battleUI.announcerTextLine2.text = "Flawless Victory!";
-                battleUI.announcerTextLine2.color = Color.red;
-                battleUI.announcerTextLine2.fontSize = 110;
+
+                battleUI.announcerTextLine1.text = (winPlayer.playerStates.characterName);
+                battleUI.announcerTextLine1.color = Color.white;
+                battleUI.announcerTextLine1.fontSize = 90;
+
+                battleUI.announcerTextLine2.text = "has preserved their legacy!";
+                battleUI.announcerTextLine2.color = Color.white;
+                battleUI.announcerTextLine2.fontSize = 50;
             }
         }
 
@@ -308,7 +326,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    PlayerBase FindWinningPlayer()
+    public PlayerBase FindWinningPlayer()
     {
         PlayerBase returnValue = null;
 
@@ -320,12 +338,14 @@ public class BattleManager : MonoBehaviour
             if (charManager.players[0].playerStates.healthPoints < charManager.players[1].playerStates.healthPoints)
             {
                 charManager.players[1].score++;
+                charManager.players[0].playerStates.currentState = PlayerController.PlayerState.Lose;
                 targetPlayer = charManager.players[1].playerStates;
                 battleUI.AddWin(1);
             }
             else
             {
                 charManager.players[0].score++;
+                charManager.players[1].playerStates.currentState = PlayerController.PlayerState.Lose;
                 targetPlayer = charManager.players[0].playerStates;
                 battleUI.AddWin(0);
             }
